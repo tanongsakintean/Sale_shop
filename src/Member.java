@@ -40,6 +40,14 @@ public class Member implements ActionListener {
 
     }
 
+    public boolean display() {
+        return this.Member.isVisible();
+    }
+
+    public int getAmount() {
+        return this.mange_m.GetMember().length;
+    }
+
     public void create_head() {
         this.Member = new JFrame("ระบบขายสินค้า");
         this.c = this.Member.getContentPane();

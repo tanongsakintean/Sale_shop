@@ -20,11 +20,17 @@ public class Product implements ActionListener {
     Timer time;
 
     public Product() {
-
         this.create_head();
         this.time = new Timer(100, this);
         this.create_body();
+    }
 
+    public boolean GetDisplay() {
+        return this.Product.isVisible();
+    }
+
+    public void SetDisplay(boolean b) {
+        this.Product.setVisible(b);
     }
 
     public void create_head() {
@@ -418,5 +424,9 @@ public class Product implements ActionListener {
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(1200, h));
         this.Product.add(this.panel);
+    }
+
+    public int getAmount() {
+        return this.mange_p.GetProduct().length;
     }
 }
