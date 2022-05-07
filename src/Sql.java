@@ -63,6 +63,16 @@ public class Sql {
         return this.data;
     }
 
+    public int maxId(String[][] data) {
+        int max = 0;
+        for (int i = 0; i < data.length; i++) {
+            if (Integer.parseInt(data[i][0]) > max) {
+                max = Integer.parseInt(data[i][0]);
+            }
+        }
+        return max;
+    }
+
     public int line(File file) {
         int line = 0;
         try {

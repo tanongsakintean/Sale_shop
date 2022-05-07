@@ -4,8 +4,9 @@ public class Mange_p extends Sql {
     // private String product[]; /// สินค้า
 
     public boolean AddProduct(String pro[]) {
-        String product[] = { "" + (this.select("DB/Products/pro.txt").length + 1) + "," + pro[0] + "," + pro[1] + ","
-                + pro[2] + "," + pro[3] };
+        String product[] = {
+                "" + (this.maxId(this.select("DB/Products/pro.txt")) + 1) + "," + pro[0] + "," + pro[1] + ","
+                        + pro[2] + "," + pro[3] };
         return this.insert(product, "DB/Products/pro.txt");
     }
 

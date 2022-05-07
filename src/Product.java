@@ -15,22 +15,23 @@ public class Product implements ActionListener {
     JButton btn_edit[], btn_del[];
     Font font = new Font("TH SarabunPSK", Font.BOLD, 30);
     Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
-    boolean error = false;
+    boolean error = false, display = true;
     String data[][], row;
     Timer time;
 
-    public Product() {
+    public void start() {
+        this.SetDisplay(true);
         this.create_head();
         this.time = new Timer(100, this);
         this.create_body();
     }
 
     public boolean GetDisplay() {
-        return this.Product.isVisible();
+        return this.display;
     }
 
     public void SetDisplay(boolean b) {
-        this.Product.setVisible(b);
+        this.display = b;
     }
 
     public void create_head() {
@@ -66,7 +67,6 @@ public class Product implements ActionListener {
         this.newLine(10);
 
         /// ชื่อสินค้า
-        this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(400, 50));
         this.label = new JLabel("ชื่อสินค้า  ");
         this.label.setPreferredSize(new Dimension(100, 50));
@@ -317,6 +317,7 @@ public class Product implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.btn_close) {
             this.time.stop();
+            this.SetDisplay(false);
             this.Product.setVisible(false);
         } else if (e.getSource() == this.btn_add) {
             /// check ค่าว่าง textfield
@@ -338,6 +339,7 @@ public class Product implements ActionListener {
                         if (this.mange_p.AddProduct(add)) {
                             JOptionPane.showMessageDialog(this.Product, "เพิ่มสินค้าสำเร็จ!", "สำเร็จ",
                                     JOptionPane.INFORMATION_MESSAGE);
+                            this.SetDisplay(false);
                             this.Product.setVisible(false);
                             this.create_head();
                             this.create_body();
@@ -356,6 +358,7 @@ public class Product implements ActionListener {
                             if (this.mange_p.EditProduct(edit)) {
                                 JOptionPane.showMessageDialog(this.Product, "แก้ไขสินค้าสำเร็จ!", "สำเร็จ",
                                         JOptionPane.INFORMATION_MESSAGE);
+                                this.SetDisplay(false);
                                 this.Product.setVisible(false);
                                 this.create_head();
                                 this.create_body();
@@ -388,10 +391,10 @@ public class Product implements ActionListener {
                         JOptionPane.YES_NO_OPTION) == 0) {
                     String[] del = { this.row, this.pro[0].getText(), this.pro[1].getText(),
                             this.pro[2].getText(), this.pro[3].getText() };
-
                     if (this.mange_p.DeleteProduct(del)) {
                         JOptionPane.showMessageDialog(this.Product, "ลบสินค้าสำเร็จ!", "สำเร็จ",
                                 JOptionPane.INFORMATION_MESSAGE);
+                        this.SetDisplay(false);
                         this.Product.setVisible(false);
                         this.create_head();
                         this.create_body();

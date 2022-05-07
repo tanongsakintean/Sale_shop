@@ -18,10 +18,10 @@ public class Member implements ActionListener {
     Font font = new Font("TH SarabunPSK", Font.BOLD, 30);
     Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
     String data[][], row;
-    boolean error = false;
+    boolean error = false, display = true;
     Timer time;
 
-    public Member(int status) {
+    public void start(int status) {
         if (status == 1) {
             this.status[0] = "จัดการลูกค้า";
             this.status[1] = "#00a8ff";
@@ -37,15 +37,18 @@ public class Member implements ActionListener {
         this.create_head();
         this.time = new Timer(100, this);
         this.create_body();
-
     }
 
-    public boolean display() {
-        return this.Member.isVisible();
+    public boolean GetDisplay() {
+        return this.display;
     }
 
-    public int getAmount() {
-        return this.mange_m.GetMember().length;
+    public void SetDisplay(boolean b) {
+        this.display = b;
+    }
+
+    public int getAmount(int status) {
+        return this.mange_m.GetMember(status).length;
     }
 
     public void create_head() {
@@ -252,73 +255,71 @@ public class Member implements ActionListener {
 
     public void create_body() {
         /// รายการสั่งซื้อ
-        this.data = this.mange_m.GetMember();
+        this.data = this.mange_m.GetMember(Integer.parseInt(this.status[3]));
         this.panel = new JPanel();
         this.panel.setLayout(new FlowLayout());
         this.panel.setPreferredSize(new Dimension(880, (120 * (this.data.length / 2))));
         this.btn_edit = new JButton[this.data.length];
         this.btn_del = new JButton[this.data.length];
         for (int i = 0; i < this.data.length; i++) {
-            if (this.data[i][5].equals(this.status[3])) {
-                this.textField = new JTextField(8);
-                this.textField.setEditable(false);
-                this.textField.setFont(this.font_textField);
-                this.textField.setText("" + (i + 1));
-                this.textField.setHorizontalAlignment(JTextField.CENTER);
-                this.panel.add(this.textField);
+            this.textField = new JTextField(8);
+            this.textField.setEditable(false);
+            this.textField.setFont(this.font_textField);
+            this.textField.setText("" + (i + 1));
+            this.textField.setHorizontalAlignment(JTextField.CENTER);
+            this.panel.add(this.textField);
 
-                this.textField = new JTextField(8);
-                this.textField.setText(this.data[i][1]);
-                this.textField.setHorizontalAlignment(JTextField.CENTER);
-                this.textField.setEditable(false);
-                this.textField.setFont(this.font_textField);
-                this.panel.add(this.textField);
+            this.textField = new JTextField(8);
+            this.textField.setText(this.data[i][1]);
+            this.textField.setHorizontalAlignment(JTextField.CENTER);
+            this.textField.setEditable(false);
+            this.textField.setFont(this.font_textField);
+            this.panel.add(this.textField);
 
-                this.textField = new JTextField(8);
-                this.textField.setText(this.data[i][2]);
-                this.textField.setHorizontalAlignment(JTextField.CENTER);
-                this.textField.setEditable(false);
-                this.textField.setFont(this.font_textField);
-                this.panel.add(this.textField);
+            this.textField = new JTextField(8);
+            this.textField.setText(this.data[i][2]);
+            this.textField.setHorizontalAlignment(JTextField.CENTER);
+            this.textField.setEditable(false);
+            this.textField.setFont(this.font_textField);
+            this.panel.add(this.textField);
 
-                this.textField = new JTextField(8);
-                this.textField.setEditable(false);
-                this.textField.setText(this.data[i][3]);
-                this.textField.setHorizontalAlignment(JTextField.CENTER);
-                this.textField.setFont(this.font_textField);
-                this.panel.add(this.textField);
+            this.textField = new JTextField(8);
+            this.textField.setEditable(false);
+            this.textField.setText(this.data[i][3]);
+            this.textField.setHorizontalAlignment(JTextField.CENTER);
+            this.textField.setFont(this.font_textField);
+            this.panel.add(this.textField);
 
-                this.textField = new JTextField(8);
-                this.textField.setEditable(false);
-                this.textField.setText(this.data[i][4]);
-                this.textField.setHorizontalAlignment(JTextField.CENTER);
-                this.textField.setFont(this.font_textField);
-                this.panel.add(this.textField);
+            this.textField = new JTextField(8);
+            this.textField.setEditable(false);
+            this.textField.setText(this.data[i][4]);
+            this.textField.setHorizontalAlignment(JTextField.CENTER);
+            this.textField.setFont(this.font_textField);
+            this.panel.add(this.textField);
 
-                this.btn_edit[i] = new JButton("แก้ไข");
-                this.btn_edit[i].setFont(this.font_textField);
-                this.btn_edit[i].setBackground(Color.decode("#f1c40f"));
-                this.btn_edit[i].setForeground(Color.WHITE);
-                this.btn_edit[i].setToolTipText("คลิกเพื่อแก้ไข");
-                this.btn_edit[i].setBorderPainted(false);
-                this.btn_edit[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
-                this.btn_edit[i].setOpaque(true);
-                this.btn_edit[i].setPreferredSize(new Dimension(80, 30));
-                this.btn_edit[i].addActionListener(this);
-                this.panel.add(this.btn_edit[i]);
+            this.btn_edit[i] = new JButton("แก้ไข");
+            this.btn_edit[i].setFont(this.font_textField);
+            this.btn_edit[i].setBackground(Color.decode("#f1c40f"));
+            this.btn_edit[i].setForeground(Color.WHITE);
+            this.btn_edit[i].setToolTipText("คลิกเพื่อแก้ไข");
+            this.btn_edit[i].setBorderPainted(false);
+            this.btn_edit[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+            this.btn_edit[i].setOpaque(true);
+            this.btn_edit[i].setPreferredSize(new Dimension(80, 30));
+            this.btn_edit[i].addActionListener(this);
+            this.panel.add(this.btn_edit[i]);
 
-                this.btn_del[i] = new JButton("ลบ");
-                this.btn_del[i].addActionListener(this);
-                this.btn_del[i].setFont(this.font_textField);
-                this.btn_del[i].setBackground(Color.decode("#e74c3c"));
-                this.btn_del[i].setToolTipText("คลิกเพื่อลบ");
-                this.btn_del[i].setForeground(Color.WHITE);
-                this.btn_del[i].setBorderPainted(false);
-                this.btn_del[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
-                this.btn_del[i].setOpaque(true);
-                this.btn_del[i].setPreferredSize(new Dimension(80, 30));
-                this.panel.add(this.btn_del[i]);
-            }
+            this.btn_del[i] = new JButton("ลบ");
+            this.btn_del[i].addActionListener(this);
+            this.btn_del[i].setFont(this.font_textField);
+            this.btn_del[i].setBackground(Color.decode("#e74c3c"));
+            this.btn_del[i].setToolTipText("คลิกเพื่อลบ");
+            this.btn_del[i].setForeground(Color.WHITE);
+            this.btn_del[i].setBorderPainted(false);
+            this.btn_del[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+            this.btn_del[i].setOpaque(true);
+            this.btn_del[i].setPreferredSize(new Dimension(80, 30));
+            this.panel.add(this.btn_del[i]);
         }
         this.scrollPanel = new JScrollPane(this.panel);
         this.scrollPanel.setPreferredSize(new Dimension(920, 400));
@@ -332,6 +333,7 @@ public class Member implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.btn_close) {
             this.time.stop();
+            this.SetDisplay(false);
             this.Member.setVisible(false);
         } else if (e.getSource() == this.btn_add) {
             /// check ค่าว่าง textfield
@@ -356,9 +358,10 @@ public class Member implements ActionListener {
                 if (this.btn_add.getText().equals("เพิ่ม" + this.status[2])) {
                     String[] add = { this.mem[0].getText(), this.mem[1].getText(),
                             this.gender.getSelectedItem().toString(), this.mem[2].getText(), this.status[3] };
-                    if (this.mange_m.AddMember(add)) {
+                    if (this.mange_m.AddMember(add, Integer.parseInt(this.status[3]))) {
                         JOptionPane.showMessageDialog(this.Member, "เพิ่ม" + this.status[2] + "สำเร็จ!", "สำเร็จ",
                                 JOptionPane.INFORMATION_MESSAGE);
+                        this.SetDisplay(false);
                         this.Member.setVisible(false);
                         this.create_head();
                         this.create_body();
@@ -373,9 +376,10 @@ public class Member implements ActionListener {
                             JOptionPane.YES_NO_OPTION) == 0) {
                         String[] edit = { this.row, this.mem[0].getText(), this.mem[1].getText(),
                                 this.gender.getSelectedItem().toString(), this.mem[2].getText(), this.status[3] };
-                        if (this.mange_m.EditMember(edit)) {
+                        if (this.mange_m.EditMember(edit, Integer.parseInt(this.status[3]))) {
                             JOptionPane.showMessageDialog(this.Member, "แก้ไข" + this.status[2] + "สำเร็จ!", "สำเร็จ",
                                     JOptionPane.INFORMATION_MESSAGE);
+                            this.SetDisplay(false);
                             this.Member.setVisible(false);
                             this.create_head();
                             this.create_body();
@@ -413,9 +417,10 @@ public class Member implements ActionListener {
                     String[] del = { this.row, this.mem[0].getText(), this.mem[1].getText(),
                             this.gender.getSelectedItem().toString(), this.mem[2].getText(), this.status[3] };
 
-                    if (this.mange_m.DeleteMember(del)) {
+                    if (this.mange_m.DeleteMember(del, Integer.parseInt(this.status[3]))) {
                         JOptionPane.showMessageDialog(this.Member, "ลบ" + this.status[2] + "สำเร็จ!", "สำเร็จ",
                                 JOptionPane.INFORMATION_MESSAGE);
+                        this.SetDisplay(false);
                         this.Member.setVisible(false);
                         this.create_head();
                         this.create_body();

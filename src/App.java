@@ -6,7 +6,7 @@ import javax.swing.JScrollPane;
 public class App implements ActionListener {
     Product pro = new Product();
     Order or;
-    Member mem;
+    Member mem = new Member();
     JFrame dashboard;
     Container c;
     JScrollPane scrollPanel;
@@ -19,7 +19,8 @@ public class App implements ActionListener {
     Timer time;
     String txt_btn[] = { "เพิ่มสินค้า", "เพิ่มลูกค้า", "เพิ่มพนักงาน", "สรุปยอดขาย" };
     String color_btn[] = { "#27ae60", "#00a8ff", "#8c7ae6", "#ffb142" };
-    String txt_textField[] = { "สินค้า : ", "ลูกค้า : ", "พนักงาน : " };
+    String txt_textField[] = { "สินค้า : " + this.pro.getAmount(), "ลูกค้า : " + this.mem.getAmount(1),
+            "พนักงาน : " + this.mem.getAmount(2) };
     String[] theSeven = { "Bash999999999ful", "Doc", "Dopey",
             "Grumpy", "Happy", "Sleepy",
             "Sneezy" };
@@ -32,7 +33,6 @@ public class App implements ActionListener {
     String order_detail = "";
 
     public App() {
-        this.pro.SetDisplay(false);
         this.menu();
     }
 
@@ -40,7 +40,9 @@ public class App implements ActionListener {
         this.dashboard = new JFrame("ระบบการขายสินค้า");
         this.c = this.dashboard.getContentPane();
         this.c.setLayout(new FlowLayout());
+        /// time faster ////
         this.time = new Timer(100, this);
+        this.time.start();
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(1200, 30));
         this.dashboard.add(this.panel);
@@ -52,8 +54,6 @@ public class App implements ActionListener {
             this.textField[i].setPreferredSize(new Dimension(200, 50));
             this.textField[i].setEditable(false);
             this.textField[i].setFont(this.font);
-            // this.textField[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            /// ! get amount of class
             this.textField[i].setText(this.txt_textField[i]);
             this.textField[i].setHorizontalAlignment(JTextField.CENTER);
             this.textField[i].setForeground(Color.decode(color_btn[i]));
@@ -358,31 +358,20 @@ public class App implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent event) {
-        this.textField[0].setText("e333");
-        if (this.time.isRunning()) {
-            if (this.pro.GetDisplay() == false || this.mem.display() == false) {
-                this.time.stop();
-            }
+        if (!this.pro.GetDisplay() || !this.mem.GetDisplay()) {
+            this.textField[0].setText("สินค้า : " + this.pro.getAmount());
+            this.textField[1].setText("ลูกค้า : " + this.mem.getAmount(1));
+            this.textField[2].setText("พนักงาน : " + this.mem.getAmount(2));
         }
         if (event.getSource() == this.btn[0]) {
-            this.pro = new Product();
-            System.out.println(this.pro.GetDisplay());
-            this.time.start();
-            this.textField[0].setText(this.txt_textField[0] + this.pro.getAmount());
+            this.pro.start();
         } else if (event.getSource() == this.btn[1]) {
-            this.mem = new Member(1);
-            System.out.println(this.mem.display());
-            this.time.start();
-            this.textField[1].setText(this.txt_textField[1] + this.mem.getAmount());
+            this.mem.start(1);
         } else if (event.getSource() == this.btn[2]) {
-            this.mem = new Member(2);
-            System.out.println(this.mem.display());
-            this.time.start();
-            this.textField[2].setText(this.txt_textField[2] + this.mem.getAmount());
+            this.mem.start(2);
         } else if (event.getSource() == this.btn[3]) {
             this.or = new Order();
         }
-
     }
 
     public void border() {
