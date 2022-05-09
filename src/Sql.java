@@ -33,6 +33,39 @@ public class Sql {
         return true;
     }
 
+    public int addCategory(String data, String path) {
+        File file = new File(path);
+        int id = 0;
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            this.out = new BufferedWriter(new FileWriter(file, true));
+            for (int i = 0; i < this.select(path).length; i++) {
+                if (this.select(path)[i][1].equals(data)) {
+                    id = Integer.parseInt(this.select(path)[i][0]);
+                } else {
+                    id = this.maxId(this.select(path)) + 1;
+                    this.out.write((this.maxId(this.select(path)) + 1) + "," + data);
+                    this.out.write("\n");
+                    break;
+                }
+            }
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+        } finally {
+            try {
+                if (this.out != null) {
+                    this.out.close();
+                    file = null;
+                }
+            } catch (Exception err) {
+                System.out.println(err.getMessage());
+            }
+        }
+        return id;
+    }
+
     public String[][] select(String path) {
         String text = "";
         File file = new File(path);

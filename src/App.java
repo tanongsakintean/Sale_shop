@@ -16,16 +16,12 @@ public class App implements ActionListener {
     JButton btn_clear[];
     JTextField textField[] = new JTextField[3];
     JTextField order;
-    Timer time;
     String txt_btn[] = { "เพิ่มสินค้า", "เพิ่มลูกค้า", "เพิ่มพนักงาน", "สรุปยอดขาย" };
     String color_btn[] = { "#27ae60", "#00a8ff", "#8c7ae6", "#ffb142" };
-    String txt_textField[] = { "สินค้า : " + this.pro.getAmount(), "ลูกค้า : " + this.mem.getAmount(1),
+    String txt_textField[] = { "สินค้า : " + (this.pro.getAmount() - 1), "ลูกค้า : " + this.mem.getAmount(1),
             "พนักงาน : " + this.mem.getAmount(2) };
-    String[] theSeven = { "Bash999999999ful", "Doc", "Dopey",
-            "Grumpy", "Happy", "Sleepy",
-            "Sneezy" };
 
-    JComboBox<String> comboBox_pro, comboBox_cus;
+    JComboBox<String> comboBox_pro, comboBox_cus, comboBox_cate;
     JLabel label;
     JTextField amount_TextField;
     Font font = new Font("TH SarabunPSK", Font.BOLD, 40);
@@ -40,9 +36,6 @@ public class App implements ActionListener {
         this.dashboard = new JFrame("ระบบการขายสินค้า");
         this.c = this.dashboard.getContentPane();
         this.c.setLayout(new FlowLayout());
-        /// time faster ////
-        this.time = new Timer(100, this);
-        this.time.start();
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(1200, 30));
         this.dashboard.add(this.panel);
@@ -110,16 +103,34 @@ public class App implements ActionListener {
         this.panel.add(this.amount_TextField);
         this.dashboard.add(this.panel);
 
+        /// เลิอกประเภทสินค้า
+        this.panel = new JPanel();
+        this.panel.setPreferredSize(new Dimension(200, 100));
+        this.label = new JLabel("เลือกประเภทสินค้า  ");
+        this.label.setFont(this.font_textField);
+        this.label.setForeground(Color.BLACK);
+        this.label.setHorizontalAlignment(JLabel.CENTER);
+        this.panel.add(this.label);
+        this.comboBox_cate = new JComboBox<>(this.pro.GetCategory());
+        this.comboBox_cate.addActionListener(this);
+        this.comboBox_cate.setFont(this.font_textField);
+        this.comboBox_cate.setBackground(Color.WHITE);
+        this.comboBox_cate.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.comboBox_cate.setAutoscrolls(true);
+        this.panel.add(this.comboBox_cate);
+        this.dashboard.add(this.panel);
+
         /// เลิอกสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(200, 100));
-        this.label = new JLabel("เลือกสินค้า  ");
+        this.label = new JLabel("เลือกประเภทสินค้า     ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
         this.panel.add(this.label);
 
-        this.comboBox_pro = new JComboBox<>(theSeven);
+        this.comboBox_pro = new JComboBox<>(this.pro.GetProduct(0));
+        this.comboBox_pro.addActionListener(this);
         this.comboBox_pro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.comboBox_pro.setFont(this.font_textField);
         this.comboBox_pro.setAutoscrolls(true);
@@ -135,7 +146,7 @@ public class App implements ActionListener {
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
         this.panel.add(this.label);
-        this.comboBox_cus = new JComboBox<>(theSeven);
+        this.comboBox_cus = new JComboBox<>(this.mem.GetMember());
         this.comboBox_cus.setFont(this.font_textField);
         this.comboBox_cus.setBackground(Color.WHITE);
         this.comboBox_cus.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -358,20 +369,23 @@ public class App implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent event) {
-        if (!this.pro.GetDisplay() || !this.mem.GetDisplay()) {
-            this.textField[0].setText("สินค้า : " + this.pro.getAmount());
-            this.textField[1].setText("ลูกค้า : " + this.mem.getAmount(1));
-            this.textField[2].setText("พนักงาน : " + this.mem.getAmount(2));
-        }
         if (event.getSource() == this.btn[0]) {
             this.pro.start();
+            this.dashboard.setVisible(false);
+            this.dashboard.dispose();
         } else if (event.getSource() == this.btn[1]) {
             this.mem.start(1);
+            this.dashboard.setVisible(false);
+            this.dashboard.dispose();
         } else if (event.getSource() == this.btn[2]) {
             this.mem.start(2);
         } else if (event.getSource() == this.btn[3]) {
-            this.or = new Order();
+            this.dashboard.setVisible(false);
+            this.dashboard.dispose();
+            // SwingUtilities.updateComponentTreeUI(this.dashboard);
         }
+
+        System.out.println("pro = " + this.comboBox_pro.getSelectedItem());
     }
 
     public void border() {

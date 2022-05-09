@@ -15,23 +15,37 @@ public class Product implements ActionListener {
     JButton btn_edit[], btn_del[];
     Font font = new Font("TH SarabunPSK", Font.BOLD, 30);
     Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
-    boolean error = false, display = true;
+    boolean error = false;
     String data[][], row;
     Timer time;
 
     public void start() {
-        this.SetDisplay(true);
         this.create_head();
         this.time = new Timer(100, this);
         this.create_body();
     }
 
-    public boolean GetDisplay() {
-        return this.display;
+    public String[] GetCategory() {
+        String category[] = new String[this.mange_p.GetCategory().length];
+
+        for (int i = 0; i < category.length; i++) {
+            category[i] = this.mange_p.GetCategory()[i][1];
+        }
+        return category;
     }
 
-    public void SetDisplay(boolean b) {
-        this.display = b;
+    public String[] GetProduct(int id) {
+        /// รับ id category มา แล้ว sort product return it
+        String pro[] = new String[this.mange_p.GetProduct().length];
+        if (id == 0) {
+            for (int i = 0; i < pro.length; i++) {
+                pro[i] = this.mange_p.GetProduct()[i][1];
+            }
+        } else {
+
+        }
+        System.out.println(id);
+        return pro;
     }
 
     public void create_head() {
@@ -245,12 +259,11 @@ public class Product implements ActionListener {
         this.panel.setPreferredSize(new Dimension(880, (120 * (this.data.length / 2))));
         this.btn_edit = new JButton[this.data.length];
         this.btn_del = new JButton[this.data.length];
-        for (int i = 0; i < this.data.length; i++) {
-
+        for (int i = 1; i < this.data.length; i++) {
             this.textField = new JTextField(8);
             this.textField.setEditable(false);
             this.textField.setFont(this.font_textField);
-            this.textField.setText("" + (i + 1));
+            this.textField.setText("" + (i));
             this.textField.setHorizontalAlignment(JTextField.CENTER);
             this.panel.add(this.textField);
 
@@ -317,8 +330,9 @@ public class Product implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.btn_close) {
             this.time.stop();
-            this.SetDisplay(false);
             this.Product.setVisible(false);
+            this.Product.dispose();
+            new App();
         } else if (e.getSource() == this.btn_add) {
             /// check ค่าว่าง textfield
             for (int i = 0; i < 4; i++) {
@@ -339,10 +353,9 @@ public class Product implements ActionListener {
                         if (this.mange_p.AddProduct(add)) {
                             JOptionPane.showMessageDialog(this.Product, "เพิ่มสินค้าสำเร็จ!", "สำเร็จ",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            this.SetDisplay(false);
                             this.Product.setVisible(false);
-                            this.create_head();
-                            this.create_body();
+                            this.Product.dispose();
+                            this.start();
                         } else {
                             JOptionPane.showMessageDialog(this.Product, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
                                     "เกิดข้อผิดพลาด",
@@ -358,10 +371,9 @@ public class Product implements ActionListener {
                             if (this.mange_p.EditProduct(edit)) {
                                 JOptionPane.showMessageDialog(this.Product, "แก้ไขสินค้าสำเร็จ!", "สำเร็จ",
                                         JOptionPane.INFORMATION_MESSAGE);
-                                this.SetDisplay(false);
                                 this.Product.setVisible(false);
-                                this.create_head();
-                                this.create_body();
+                                this.Product.dispose();
+                                this.start();
                             } else {
                                 JOptionPane.showMessageDialog(this.Product, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
                                         "เกิดข้อผิดพลาด",
@@ -394,10 +406,9 @@ public class Product implements ActionListener {
                     if (this.mange_p.DeleteProduct(del)) {
                         JOptionPane.showMessageDialog(this.Product, "ลบสินค้าสำเร็จ!", "สำเร็จ",
                                 JOptionPane.INFORMATION_MESSAGE);
-                        this.SetDisplay(false);
                         this.Product.setVisible(false);
-                        this.create_head();
-                        this.create_body();
+                        this.Product.dispose();
+                        this.start();
                     } else {
                         JOptionPane.showMessageDialog(this.Product, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
                                 "เกิดข้อผิดพลาด",

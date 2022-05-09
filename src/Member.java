@@ -18,7 +18,7 @@ public class Member implements ActionListener {
     Font font = new Font("TH SarabunPSK", Font.BOLD, 30);
     Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
     String data[][], row;
-    boolean error = false, display = true;
+    boolean error = false;
     Timer time;
 
     public void start(int status) {
@@ -39,12 +39,12 @@ public class Member implements ActionListener {
         this.create_body();
     }
 
-    public boolean GetDisplay() {
-        return this.display;
-    }
-
-    public void SetDisplay(boolean b) {
-        this.display = b;
+    public String[] GetMember() {
+        String mem[] = new String[this.mange_m.GetMember(1).length];
+        for (int i = 0; i < mem.length; i++) {
+            mem[i] = this.mange_m.GetMember(1)[i][1] + " " + this.mange_m.GetMember(1)[i][2];
+        }
+        return mem;
     }
 
     public int getAmount(int status) {
@@ -333,8 +333,9 @@ public class Member implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.btn_close) {
             this.time.stop();
-            this.SetDisplay(false);
             this.Member.setVisible(false);
+            this.Member.dispose();
+            new App();
         } else if (e.getSource() == this.btn_add) {
             /// check ค่าว่าง textfield
             if (this.gender.getSelectedIndex() != 0) {
@@ -361,10 +362,9 @@ public class Member implements ActionListener {
                     if (this.mange_m.AddMember(add, Integer.parseInt(this.status[3]))) {
                         JOptionPane.showMessageDialog(this.Member, "เพิ่ม" + this.status[2] + "สำเร็จ!", "สำเร็จ",
                                 JOptionPane.INFORMATION_MESSAGE);
-                        this.SetDisplay(false);
                         this.Member.setVisible(false);
-                        this.create_head();
-                        this.create_body();
+                        this.Member.dispose();
+                        this.start(Integer.parseInt(this.status[3]));
                     } else {
                         JOptionPane.showMessageDialog(this.Member, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
                                 "เกิดข้อผิดพลาด",
@@ -379,10 +379,9 @@ public class Member implements ActionListener {
                         if (this.mange_m.EditMember(edit, Integer.parseInt(this.status[3]))) {
                             JOptionPane.showMessageDialog(this.Member, "แก้ไข" + this.status[2] + "สำเร็จ!", "สำเร็จ",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            this.SetDisplay(false);
                             this.Member.setVisible(false);
-                            this.create_head();
-                            this.create_body();
+                            this.Member.dispose();
+                            this.start(Integer.parseInt(this.status[3]));
                         } else {
                             JOptionPane.showMessageDialog(this.Member, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
                                     "เกิดข้อผิดพลาด",
@@ -420,10 +419,9 @@ public class Member implements ActionListener {
                     if (this.mange_m.DeleteMember(del, Integer.parseInt(this.status[3]))) {
                         JOptionPane.showMessageDialog(this.Member, "ลบ" + this.status[2] + "สำเร็จ!", "สำเร็จ",
                                 JOptionPane.INFORMATION_MESSAGE);
-                        this.SetDisplay(false);
                         this.Member.setVisible(false);
-                        this.create_head();
-                        this.create_body();
+                        this.Member.dispose();
+                        this.start(Integer.parseInt(this.status[3]));
                     } else {
                         JOptionPane.showMessageDialog(this.Member, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
                                 "เกิดข้อผิดพลาด",
