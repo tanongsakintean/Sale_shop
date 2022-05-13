@@ -34,18 +34,24 @@ public class Product implements ActionListener {
         return category;
     }
 
-    public String[] GetProduct(int id) {
+    public String[] GetProduct(String key) {
         /// รับ id category มา แล้ว sort product return it
+        System.out.println("id = " + key);
         String pro[] = new String[this.mange_p.GetProduct().length];
-        if (id == 0) {
+        if (key.equals("0")) {
             for (int i = 0; i < pro.length; i++) {
                 pro[i] = this.mange_p.GetProduct()[i][1];
             }
+            return pro;
         } else {
-
+            System.out.println(key);
+            for (int i = 0; i < pro.length; i++) {
+                if (this.mange_p.GetProduct()[i][3].equals(key)) {
+                    pro[i] = this.mange_p.GetProduct()[i][1];
+                }
+            }
+            return pro;
         }
-        System.out.println(id);
-        return pro;
     }
 
     public void create_head() {
@@ -401,7 +407,8 @@ public class Product implements ActionListener {
                 this.row = this.data[i][0];
                 if (JOptionPane.showConfirmDialog(this.Product, "คุณต้องการลบสินค้าหรือไม่?", "ยืนยัน",
                         JOptionPane.YES_NO_OPTION) == 0) {
-                    String[] del = { this.row, this.pro[0].getText(), this.pro[1].getText(),
+
+                    String[] del = { "" + this.row, this.pro[0].getText(), this.pro[1].getText(),
                             this.pro[2].getText(), this.pro[3].getText() };
                     if (this.mange_p.DeleteProduct(del)) {
                         JOptionPane.showMessageDialog(this.Product, "ลบสินค้าสำเร็จ!", "สำเร็จ",

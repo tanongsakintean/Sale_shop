@@ -44,12 +44,14 @@ public class Sql {
             for (int i = 0; i < this.select(path).length; i++) {
                 if (this.select(path)[i][1].equals(data)) {
                     id = Integer.parseInt(this.select(path)[i][0]);
-                } else {
-                    id = this.maxId(this.select(path)) + 1;
-                    this.out.write((this.maxId(this.select(path)) + 1) + "," + data);
-                    this.out.write("\n");
-                    break;
+                    String[] cate = { "" + id, "" + data, "" + (Integer.parseInt(this.select(path)[i][2]) + 1) };
+                    this.update(cate, path);
                 }
+            }
+            if (id == 0) {
+                id = this.maxId(this.select(path)) + 1;
+                this.out.write((this.maxId(this.select(path)) + 1) + "," + data + "," + "1");
+                this.out.write("\n");
             }
         } catch (Exception error) {
             System.out.println(error.getMessage());
@@ -139,6 +141,7 @@ public class Sql {
         for (int i = 0; i < this.data.length; i++) {
             if (this.data[i][0].equals(data[0])) {
                 for (int j = 0; j < this.data[i].length; j++) {
+                    System.out.println(this.data[i][j]);
                     this.data[i][j] = "";
                 }
             }

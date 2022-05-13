@@ -3,13 +3,15 @@ public class Mange_p extends Sql {
     private String[][] data;
 
     public boolean AddProduct(String pro[]) {
+        /// เช็คว่ามีประเภทสินค้านี้นั้นหรือไม่ ถ้าไม่มีให้เพิ่มประเภทสินค้าใหม่
+
         if (this.select("DB/Product/product.txt").length != 0) {
             String product[] = {
                     "" + (this.maxId(this.select("DB/Products/pro.txt")) + 1) + "," + pro[0] + "," + pro[1] + ","
                             + this.addCategory(pro[2], "DB/Products/Category/cate.txt") + "," + pro[3] };
             return this.insert(product, "DB/Products/pro.txt");
         } else {
-            String category[] = { "0", "เลือกประเภทสินค้า" };
+            String category[] = { "0", "เลือกประเภทสินค้า", "0" };
             this.insert(category, "DB/Products/Category/cate.txt");
             String product[] = { "0", "เลือกสินค้า", "0", "0", "0" };
             return this.insert(product, "DB/Products/pro.txt");
@@ -27,7 +29,7 @@ public class Mange_p extends Sql {
         if (this.select("DB/Products/pro.txt").length == 0) {
             String product[] = { "0", "เลือกสินค้า", "0", "0", "0" };
             this.insert(product, "DB/Products/pro.txt");
-            String category[] = { "0", "เลือกประเภทสินค้า" };
+            String category[] = { "0", "เลือกประเภทสินค้า", "0" };
             this.insert(category, "DB/Products/Category/cate.txt");
         }
         this.setProduct();
@@ -38,12 +40,12 @@ public class Mange_p extends Sql {
     public void setProduct() {
         this.data = new String[this.select("DB/Products/pro.txt").length][this.select("DB/Products/pro.txt")[0].length];
         for (int i = 0; i < data.length; i++) {
-            data[i][0] = this.select("DB/Products/pro.txt")[i][0];
-            data[i][1] = this.select("DB/Products/pro.txt")[i][1];
-            data[i][2] = this.select("DB/Products/pro.txt")[i][2];
-            data[i][3] = this.select(
-                    "DB/Products/Category/cate.txt")[Integer.parseInt(this.select("DB/Products/pro.txt")[i][3])][1];
-            data[i][4] = this.select("DB/Products/pro.txt")[i][4];
+            this.data[i][0] = this.select("DB/Products/pro.txt")[i][0];
+            this.data[i][1] = this.select("DB/Products/pro.txt")[i][1];
+            this.data[i][2] = this.select("DB/Products/pro.txt")[i][2];
+            this.data[i][3] = this.select("DB/Products/Category/cate.txt")[Integer
+                    .parseInt(this.select("DB/Products/pro.txt")[i][3])][1];
+            this.data[i][4] = this.select("DB/Products/pro.txt")[i][4];
         }
     }
 
@@ -51,8 +53,38 @@ public class Mange_p extends Sql {
         return this.update(pro, "DB/Products/pro.txt");
     }
 
-    public boolean DeleteProduct(String pro[]) {
-        /// ต้องลบประเภทสินค้าด้วยถ้าสินค้าประเภทนี้นหมดแล้ว
+    public void DeleteCategory(int key) {
+
+        String path = "DB/Products/Category/cate.txt";
+        this.data = this.select(path);
+        int low = 0, high = this.select(path).length - 1, middle;
+        while (low <= high) {
+            middle = (low + high) / 2;
+            if (Integer.parseInt(this.data[middle][0]) == key) {
+                if (Integer.parseInt(this.data[middle][2]) > 1) {
+                    System.out.println("true" + this.data[middle][0]);
+                    String cate[] = { "" + this.data[middle][0], "" + this.data[middle][1],
+                            "" + (Integer.parseInt(this.data[middle][2]) - 1) };
+                    this.update(cate, path);
+                    break;
+                } else if (Integer.parseInt(this.data[middle][2]) == 1) {
+                    String[] cate = { this.select(path)[middle][0],
+                            this.select(path)[middle][1], "1" };
+                    this.delete(cate, path);
+                    break;
+                }
+            } else if (key < Integer.parseInt(this.data[middle][0])) {
+                high = middle - 1;
+            } else {
+                low = middle + 1;
+            }
+        }
+
+    }
+
+    public boolean DeleteProduct(String[] pro) {
+        this.DeleteCategory(Integer.parseInt(this.select("DB/Products/pro.txt")[Integer.parseInt(pro[0])][3]));
         return this.delete(pro, "DB/Products/pro.txt");
     }
+
 }
