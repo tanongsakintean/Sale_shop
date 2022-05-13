@@ -384,14 +384,16 @@ public class App implements ActionListener {
             this.dashboard.dispose();
             // SwingUtilities.updateComponentTreeUI(this.dashboard);
         }
-        if (this.comboBox_cate.getSelectedIndex() != 0) {
+        if (this.comboBox_cate.getSelectedIndex() > 1) {
             this.comboBox_pro.setModel(
                     new DefaultComboBoxModel<String>(
                             this.pro.GetProduct(this.comboBox_cate.getSelectedItem().toString())));
             this.comboBox_cate.setSelectedIndex(0);
+        } else if (this.comboBox_cate.getSelectedIndex() == 1) {
+            this.comboBox_pro.setModel(new DefaultComboBoxModel<String>(this.pro.GetProduct("0")));
+            this.comboBox_cate.setSelectedIndex(0);
 
         }
-        System.out.println(" = " + this.comboBox_pro.getSelectedItem());
     }
 
     public void border() {
