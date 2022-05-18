@@ -40,7 +40,7 @@ public class Member implements ActionListener {
     }
 
     public String[] GetMember() {
-        String mem[] = new String[this.mange_m.GetMember(1).length];
+        String mem[] = new String[(this.mange_m.GetMember(1).length)];
         for (int i = 0; i < mem.length; i++) {
             mem[i] = this.mange_m.GetMember(1)[i][1] + " " + this.mange_m.GetMember(1)[i][2];
         }
@@ -261,11 +261,11 @@ public class Member implements ActionListener {
         this.panel.setPreferredSize(new Dimension(880, (120 * (this.data.length / 2))));
         this.btn_edit = new JButton[this.data.length];
         this.btn_del = new JButton[this.data.length];
-        for (int i = 0; i < this.data.length; i++) {
+        for (int i = 1; i < this.data.length; i++) {
             this.textField = new JTextField(8);
             this.textField.setEditable(false);
             this.textField.setFont(this.font_textField);
-            this.textField.setText("" + (i + 1));
+            this.textField.setText("" + ((i - 1) + 1));
             this.textField.setHorizontalAlignment(JTextField.CENTER);
             this.panel.add(this.textField);
 

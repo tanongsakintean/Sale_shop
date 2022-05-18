@@ -44,9 +44,7 @@ public class Product implements ActionListener {
         } else {
             int i = 1;
             String pro[] = new String[(this.mange_p.CountCate(key) + 1)];
-            System.out.println(pro.length);
             pro[0] = "เลือกสินค้า";
-            System.out.println(i);
             for (int j = 0; j < this.mange_p.GetProduct().length; j++) {
                 if (this.mange_p.GetProduct()[j][3].equals(key)) {
                     pro[i] = this.mange_p.GetProduct()[j][1];

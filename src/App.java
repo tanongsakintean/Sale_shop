@@ -1,32 +1,33 @@
 import java.awt.*;
+import java.text.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.JScrollPane;
 
 public class App implements ActionListener {
+    DecimalFormat DecimalFormat = new DecimalFormat("#,###,###,###.0");
     Product pro = new Product();
-    Order or;
+    Order or = new Order();
+    Sales sa = new Sales();
     Member mem = new Member();
     JFrame dashboard;
     Container c;
     JScrollPane scrollPanel;
-    JPanel panel;
+    JPanel panel, panelorder;
     JButton btn[] = new JButton[4];
     JButton btn_buy, btn_pay, btn_cancle;
     JButton btn_clear[];
     JTextField textField[] = new JTextField[3];
     JTextField order;
-    String txt_btn[] = { "เพิ่มสินค้า", "เพิ่มลูกค้า", "เพิ่มพนักงาน", "สรุปยอดขาย" };
-    String color_btn[] = { "#27ae60", "#00a8ff", "#8c7ae6", "#ffb142" };
+    String txt_btn[] = { "เพิ่มสินค้า", "เพิ่มลูกค้า", "เพิ่มพนักงาน", "สรุปยอดขาย" },
+            color_btn[] = { "#27ae60", "#00a8ff", "#8c7ae6", "#ffb142" };
     String txt_textField[] = { "สินค้า : " + (this.pro.getAmount() - 1), "ลูกค้า : " + this.mem.getAmount(1),
             "พนักงาน : " + this.mem.getAmount(2) };
-
     JComboBox<String> comboBox_pro, comboBox_cus, comboBox_cate;
     JLabel label;
     JTextField amount_TextField;
     Font font = new Font("TH SarabunPSK", Font.BOLD, 40);
     Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
-    String order_detail = "";
 
     public App() {
         this.menu();
@@ -99,6 +100,7 @@ public class App implements ActionListener {
         this.amount_TextField = new JTextField(10);
         this.amount_TextField.setFont(this.font_textField);
         this.amount_TextField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.amount_TextField.addActionListener(this);
         this.amount_TextField.setHorizontalAlignment(JTextField.CENTER);
         this.panel.add(this.amount_TextField);
         this.dashboard.add(this.panel);
@@ -123,7 +125,7 @@ public class App implements ActionListener {
         /// เลิอกสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(200, 100));
-        this.label = new JLabel("เลือกประเภทสินค้า     ");
+        this.label = new JLabel("เลือกสินค้า     ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -150,6 +152,7 @@ public class App implements ActionListener {
         this.comboBox_cus.setFont(this.font_textField);
         this.comboBox_cus.setBackground(Color.WHITE);
         this.comboBox_cus.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.comboBox_cus.addActionListener(this);
         this.comboBox_pro.setAutoscrolls(true);
         this.panel.add(this.comboBox_cus);
         this.dashboard.add(this.panel);
@@ -270,54 +273,12 @@ public class App implements ActionListener {
         this.newLine(5);
 
         /// รายการสั่งซื้อ
-        this.panel = new JPanel();
-        this.panel.setLayout(new FlowLayout());
-        this.panel.setPreferredSize(new Dimension(880, 150));
-        for (int i = 0; i < 4; i++) {
-            this.order = new JTextField(8);
-            this.order.setEditable(false);
-            this.order.setFont(this.font_textField);
-            this.order.setText("" + (i + 1));
-            this.order.setHorizontalAlignment(JTextField.CENTER);
-            this.panel.add(this.order);
-
-            this.order = new JTextField(8);
-            this.order.setText("" + (i + 1));
-            this.order.setHorizontalAlignment(JTextField.CENTER);
-            this.order.setEditable(false);
-            this.order.setFont(this.font_textField);
-            this.panel.add(this.order);
-
-            this.order = new JTextField(8);
-            this.order.setText("" + (i + 1));
-            this.order.setHorizontalAlignment(JTextField.CENTER);
-            this.order.setEditable(false);
-            this.order.setFont(this.font_textField);
-            this.panel.add(this.order);
-
-            this.order = new JTextField(8);
-            this.order.setEditable(false);
-            this.order.setText("" + (i + 1));
-            this.order.setHorizontalAlignment(JTextField.CENTER);
-            this.order.setFont(this.font_textField);
-            this.panel.add(this.order);
-
-            this.order = new JTextField(8);
-            this.order.setText("" + (i + 1));
-            this.order.setHorizontalAlignment(JTextField.CENTER);
-            this.order.setEditable(false);
-            this.order.setFont(this.font_textField);
-            this.panel.add(this.order);
-
-            this.order = new JTextField(8);
-            this.order.setText("" + (i + 1));
-            this.order.setHorizontalAlignment(JTextField.CENTER);
-            this.order.setEditable(false);
-            this.order.setFont(this.font_textField);
-            this.panel.add(this.order);
-
-        }
-        this.scrollPanel = new JScrollPane(this.panel);
+        this.panelorder = new JPanel();
+        this.panelorder.setLayout(new FlowLayout());
+        /// config height of panel
+        this.panelorder.setPreferredSize(new Dimension(880, (150 * (this.or.getOrder().length / 2))));
+        this.orderlist(this.or.getOrder());
+        this.scrollPanel = new JScrollPane(this.panelorder);
         this.scrollPanel.setPreferredSize(new Dimension(920, 150));
         this.dashboard.add(this.scrollPanel);
 
@@ -380,10 +341,86 @@ public class App implements ActionListener {
         } else if (event.getSource() == this.btn[2]) {
             this.mem.start(2);
         } else if (event.getSource() == this.btn[3]) {
+            this.sa.start();
             this.dashboard.setVisible(false);
             this.dashboard.dispose();
             // SwingUtilities.updateComponentTreeUI(this.dashboard);
+        } else if (event.getSource() == this.btn_buy) {
+            if (this.amount_TextField.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "กรุณากรอกจำนวนสินค้าที่ต้องการซื้อ", "กรุณากรอกข้อมูล",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                if (JOptionPane.showConfirmDialog(this.dashboard, "คุณต้องการเพิ่มออเดอร์สินค้าหรือไม่?", "ยืนยัน",
+                        JOptionPane.YES_NO_OPTION) == 0) {
+                    this.panelorder.removeAll();
+                    SwingUtilities.updateComponentTreeUI(this.dashboard);
+                    String[] data = { this.amount_TextField.getText(), this.comboBox_cate.getSelectedItem().toString(),
+                            this.comboBox_pro.getSelectedItem().toString(),
+                            this.comboBox_cus.getSelectedItem().toString() };
+                    this.or.addOrder(data);
+                    this.orderlist(this.or.getOrder());
+                    this.amount_TextField.setText("");
+                    this.comboBox_pro.setSelectedIndex(0);
+                    this.comboBox_cus.setSelectedIndex(0);
+                }
+            }
+        } else if (event.getSource() == this.btn_cancle) {
+            if (this.or.getOrder().length <= 1) {
+                JOptionPane.showMessageDialog(this.dashboard, "กรุณากรอกข้อมูลออเดอร์สินค้าก่อน", "กรุณากรอกข้อมูล",
+                        JOptionPane.ERROR_MESSAGE);
+
+            } else {
+
+                if (JOptionPane.showConfirmDialog(this.dashboard, "คุณต้องการยกเลิกออเดอร์ทั้งหมดหรือไม่?", "ยืนยัน",
+                        JOptionPane.YES_NO_OPTION) == 0) {
+                    if (this.or.deleteOrder()) {
+                        this.panelorder.removeAll();
+                        SwingUtilities.updateComponentTreeUI(this.dashboard);
+                        this.orderlist(this.or.getOrder());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "เกิดข้อผิดพลาดโปรดติดต่อแอดมิน", "ข้อผิดพลาด",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
+            }
+        } else if (event.getSource() == this.btn_pay) {
+            if (this.or.getOrder().length > 1) {
+                if (JOptionPane.showConfirmDialog(this.dashboard,
+                        "คุณต้องการชำระเงินใช่หรือไม่?", "ยืนยัน",
+                        JOptionPane.YES_NO_OPTION) == 0) {
+                    int money = Integer
+                            .parseInt(JOptionPane.showInputDialog(this.dashboard,
+                                    "ยอดรวม : " + DecimalFormat.format(this.or.getCost()[0] - this.or.getCost()[1])
+                                            + " บาท" + " ส่วนลด : "
+                                            + DecimalFormat.format(this.or.getCost()[1]) + " บาท",
+                                    "กรอกจำนวนเงินที่รับมา",
+                                    JOptionPane.QUESTION_MESSAGE));
+                    if (money >= (this.or.getCost()[0] - this.or.getCost()[1])) {
+                        JOptionPane.showMessageDialog(this.dashboard,
+                                "เงินทอนคือ "
+                                        + DecimalFormat.format(
+                                                this.or.pay(money, (this.or.getCost()[0] - this.or.getCost()[1])))
+                                        + " บาท",
+                                "การชำระเงินสำเร็จ",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        this.or.deleteOrder();
+                        this.panelorder.removeAll();
+                        SwingUtilities.updateComponentTreeUI(this.dashboard);
+                    } else {
+                        JOptionPane.showMessageDialog(this.dashboard, "จำนวนเงินที่รับไม่ถูกต้อง",
+                                "การชำระเงินไม่สำเร็จโปรดลองใหม่",
+                                JOptionPane.ERROR_MESSAGE);
+
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "ไม่มีออเดอร์ที่ต้องการชำระเงิน",
+                        "ข้อผิดพลาด",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
+
         if (this.comboBox_cate.getSelectedIndex() > 1) {
             this.comboBox_pro.setModel(
                     new DefaultComboBoxModel<String>(
@@ -394,6 +431,56 @@ public class App implements ActionListener {
             this.comboBox_cate.setSelectedIndex(0);
 
         }
+    }
+
+    public void orderlist(String[][] data) {
+        if (data.length > 1) {
+            for (int i = 1; i < data.length; i++) {
+                this.order = new JTextField(8);
+                this.order.setEditable(false);
+                this.order.setFont(this.font_textField);
+                this.order.setText("" + data[i][0]);
+                this.order.setHorizontalAlignment(JTextField.CENTER);
+                this.panelorder.add(this.order);
+
+                this.order = new JTextField(8);
+                this.order.setText("" + data[i][1]);
+                this.order.setHorizontalAlignment(JTextField.CENTER);
+                this.order.setEditable(false);
+                this.order.setFont(this.font_textField);
+                this.panelorder.add(this.order);
+
+                this.order = new JTextField(8);
+                this.order.setText("" + data[i][2]);
+                this.order.setHorizontalAlignment(JTextField.CENTER);
+                this.order.setEditable(false);
+                this.order.setFont(this.font_textField);
+                this.panelorder.add(this.order);
+
+                this.order = new JTextField(8);
+                this.order.setEditable(false);
+                this.order.setText("" + data[i][3]);
+                this.order.setHorizontalAlignment(JTextField.CENTER);
+                this.order.setFont(this.font_textField);
+                this.panelorder.add(this.order);
+
+                this.order = new JTextField(8);
+                this.order.setText("" + data[i][4]);
+                this.order.setHorizontalAlignment(JTextField.CENTER);
+                this.order.setEditable(false);
+                this.order.setFont(this.font_textField);
+                this.panelorder.add(this.order);
+
+                this.order = new JTextField(8);
+                this.order.setText("" + data[i][5]);
+                this.order.setHorizontalAlignment(JTextField.CENTER);
+                this.order.setEditable(false);
+                this.order.setFont(this.font_textField);
+                this.panelorder.add(this.order);
+
+            }
+        }
+
     }
 
     public void border() {

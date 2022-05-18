@@ -3,7 +3,6 @@ import java.io.*;
 public class Sql {
     private BufferedReader in;
     private BufferedWriter out;
-    private StringBuffer buffer;
     private String[][] data;
 
     public boolean insert(String[] data, String path) {
@@ -213,4 +212,18 @@ public class Sql {
         return true;
     }
 
+    public boolean deleteFile(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            try {
+                file.delete();
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                file = null;
+            }
+        }
+        return true;
+    }
 }

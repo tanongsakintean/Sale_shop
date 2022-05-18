@@ -1,5 +1,3 @@
 0,เลือกสินค้า,0,0,0,
-1,wqw,qwwq,2,ww,
-2,rr,rr,2,rr,
-3,qq,qq,2,qq,
-4,qw,wq,3,wqqwwq,
+1,Glass,Ab200,2,20,
+2,Table,AB101,2,10,
