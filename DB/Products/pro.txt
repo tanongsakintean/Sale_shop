@@ -1,4 +1,2 @@
-0,เลือกสินค้า,0,0,0,
-2,Table,AB101,2,10,
-3,pen,AV22,3,10,
-4,glass,AG1001,2,19,
+0,choose Product,0,0,0,
+1,glass,avge,4,10,

@@ -41,7 +41,10 @@ public class Mange_p extends Sql {
     }
 
     public boolean EditProduct(String pro[]) {
-        return this.update(pro, "DB/Products/pro.txt");
+        /// edit product and category
+        String product[] = { pro[0], pro[1], pro[2], "" + this.addCategory(pro[3], "DB/Products/Category/cate.txt"),
+                pro[4] };
+        return this.update(product, "DB/Products/pro.txt");
     }
 
     public int CountCate(String key) {
