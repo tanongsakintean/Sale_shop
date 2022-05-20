@@ -89,7 +89,7 @@ public class Mange_o extends Sql {
     }
 
     public void payment(int cost) {
-        System.out.println(countCustomer());
+
         for (int i = 0; i < countCustomer(); i++) {
             int amount = 0, countDiscount = 0, id = 0;
             for (int j = 1; j < this.data.length; j++) {
@@ -109,9 +109,7 @@ public class Mange_o extends Sql {
             String[] payment = { "" + (this.maxId(this.select("DB/Sales/sales.txt")) +
                     1), this.data[id][6],
                     "" + amount,
-                    "" + new SimpleDateFormat("dd").format(new Date()) + ":"
-                            + new SimpleDateFormat("MM").format(new Date()) + ":"
-                            + (Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date())) + 543),
+                    "" + new SimpleDateFormat("dd/MM/yyyy").format(new Date()),
                     "" + DecimalFormat.format(((amount * Integer.parseInt(this.data[id][5])) - countDiscount)) };
             this.insert(payment, "DB/Sales/sales.txt");
         }

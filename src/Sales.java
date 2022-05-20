@@ -3,15 +3,14 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Sales implements ActionListener {
+    private Mange_s mange_s = new Mange_s();
     JFrame Sales;
     Container c;
-    JPanel panel;
+    JPanel panel, panelSaleList;
     JScrollPane scrollPanel;
     JLabel label;
-    JTextField pro[] = new JTextField[4];
     JTextField textField, date;
-    JButton btn_add, btn_close, btn_search;
-    JButton btn_edit[], btn_del[];
+    JButton btn_close, btn_search;
     Font font = new Font("TH SarabunPSK", Font.BOLD, 30);
     Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
 
@@ -72,6 +71,7 @@ public class Sales implements ActionListener {
         this.date.setBackground(Color.decode("#f2f2f2"));
         this.date.setForeground(Color.BLACK);
         this.panel.add(this.date);
+
         this.btn_search = new JButton("ค้นหา");
         this.btn_search.setFont(this.font_textField);
         this.btn_search.setBackground(Color.decode("#4b7bec"));
@@ -150,47 +150,11 @@ public class Sales implements ActionListener {
         this.Sales.add(this.panel);
 
         /// รายการสั่งซื้อ
-        this.panel = new JPanel();
-        this.panel.setLayout(new FlowLayout());
-        this.panel.setPreferredSize(new Dimension(730, 400));
-        this.btn_edit = new JButton[4];
-        this.btn_del = new JButton[4];
-        for (int i = 0; i < 4; i++) {
-            this.textField = new JTextField(8);
-            this.textField.setEditable(false);
-            this.textField.setFont(this.font_textField);
-            this.textField.setText("" + (i + 1));
-            this.textField.setHorizontalAlignment(JTextField.CENTER);
-            this.panel.add(this.textField);
-
-            this.textField = new JTextField(8);
-            this.textField.setEditable(false);
-            this.textField.setFont(this.font_textField);
-            this.textField.setText("" + (i + 1));
-            this.textField.setHorizontalAlignment(JTextField.CENTER);
-            this.panel.add(this.textField);
-
-            this.textField = new JTextField(8);
-            this.textField.setEditable(false);
-            this.textField.setFont(this.font_textField);
-            this.textField.setText("" + (i + 1));
-            this.textField.setHorizontalAlignment(JTextField.CENTER);
-            this.panel.add(this.textField);
-            this.textField = new JTextField(8);
-            this.textField.setEditable(false);
-            this.textField.setFont(this.font_textField);
-            this.textField.setText("" + (i + 1));
-            this.textField.setHorizontalAlignment(JTextField.CENTER);
-            this.panel.add(this.textField);
-            this.textField = new JTextField(8);
-            this.textField.setEditable(false);
-            this.textField.setFont(this.font_textField);
-            this.textField.setText("" + (i + 1));
-            this.textField.setHorizontalAlignment(JTextField.CENTER);
-            this.panel.add(this.textField);
-
-        }
-        this.scrollPanel = new JScrollPane(this.panel);
+        this.panelSaleList = new JPanel();
+        this.panelSaleList.setLayout(new FlowLayout());
+        this.panelSaleList.setPreferredSize(new Dimension(730, (120 * (this.mange_s.getSales().length / 2))));
+        this.saleLists(this.mange_s.getSales(), 0);
+        this.scrollPanel = new JScrollPane(this.panelSaleList);
         this.scrollPanel.setPreferredSize(new Dimension(750, 400));
         this.Sales.add(this.scrollPanel);
 
@@ -202,7 +166,73 @@ public class Sales implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == this.btn_close) {
             this.Sales.setVisible(false);
+            this.Sales.dispose();
+            new App();
+        } else if (event.getSource() == this.btn_search) {
+            if (this.date.getText().toString().trim().equals("")) {
+                this.panelSaleList.removeAll();
+                SwingUtilities.updateComponentTreeUI(this.Sales);
+                this.saleLists(this.mange_s.getSales(), 0);
+            } else {
+                if (this.mange_s.countSearch(this.date.getText().toString()) == 0) {
+                    JOptionPane.showMessageDialog(this.Sales, "ไม่พบข้อมูลที่ค้นหา");
+                } else {
+                    this.panelSaleList.removeAll();
+                    SwingUtilities.updateComponentTreeUI(this.Sales);
+                    this.saleLists(this.mange_s.search(this.date.getText().toString()), 1);
+                }
+
+            }
+
         }
+
+    }
+
+    public void saleLists(String[][] data, int type) {
+        int count = 1;
+        System.out.println(data.length);
+        for (int i = 0; i < data.length; i++) {
+            if (data[i][1] != null) {
+                System.out.println(11111);
+                System.out.println(data[i][3]);
+                this.textField = new JTextField(8);
+                this.textField.setEditable(false);
+                this.textField.setFont(this.font_textField);
+                this.textField.setText("" + (count));
+                this.textField.setHorizontalAlignment(JTextField.CENTER);
+                this.panelSaleList.add(this.textField);
+
+                this.textField = new JTextField(8);
+                this.textField.setEditable(false);
+                this.textField.setFont(this.font_textField);
+                this.textField.setText("" + data[i][1]);
+                this.textField.setHorizontalAlignment(JTextField.CENTER);
+                this.panelSaleList.add(this.textField);
+
+                this.textField = new JTextField(8);
+                this.textField.setEditable(false);
+                this.textField.setFont(this.font_textField);
+                this.textField.setText("" + data[i][2]);
+                this.textField.setHorizontalAlignment(JTextField.CENTER);
+                this.panelSaleList.add(this.textField);
+                this.textField = new JTextField(8);
+                this.textField.setEditable(false);
+                this.textField.setFont(this.font_textField);
+
+                this.textField.setText("" + data[i][3]);
+                this.textField.setHorizontalAlignment(JTextField.CENTER);
+                this.panelSaleList.add(this.textField);
+                this.textField = new JTextField(8);
+                this.textField.setEditable(false);
+                this.textField.setFont(this.font_textField);
+
+                this.textField.setText("" + data[i][4]);
+                this.textField.setHorizontalAlignment(JTextField.CENTER);
+                this.panelSaleList.add(this.textField);
+                count++;
+            }
+        }
+
     }
 
     public void border() {

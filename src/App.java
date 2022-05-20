@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.JScrollPane;
 
 public class App implements ActionListener {
-    DecimalFormat DecimalFormat = new DecimalFormat("#,###,###,###.0");
+    DecimalFormat DecimalFormat = new DecimalFormat("#,###,###,###");
     Product pro = new Product();
     Order or = new Order();
     Sales sa = new Sales();
@@ -21,8 +21,8 @@ public class App implements ActionListener {
     JTextField order;
     String txt_btn[] = { "เพิ่มสินค้า", "เพิ่มลูกค้า", "เพิ่มพนักงาน", "สรุปยอดขาย" },
             color_btn[] = { "#27ae60", "#00a8ff", "#8c7ae6", "#ffb142" };
-    String txt_textField[] = { "สินค้า : " + (this.pro.getAmount() - 1), "ลูกค้า : " + this.mem.getAmount(1),
-            "พนักงาน : " + this.mem.getAmount(2) };
+    String txt_textField[] = { "สินค้า : " + (this.pro.getAmount() - 1), "ลูกค้า : " + (this.mem.getAmount(1) - 1),
+            "พนักงาน : " + (this.mem.getAmount(2) - 1) };
     JComboBox<String> comboBox_pro, comboBox_cus, comboBox_cate;
     JLabel label;
     JTextField amount_TextField;
