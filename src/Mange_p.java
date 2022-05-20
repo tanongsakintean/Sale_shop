@@ -13,6 +13,18 @@ public class Mange_p extends Sql {
         return this.select("DB/Products/Category/cate.txt");
     }
 
+    public void setProduct() {
+        this.data = new String[this.select("DB/Products/pro.txt").length][this.select("DB/Products/pro.txt")[0].length];
+        for (int i = 0; i < this.data.length; i++) {
+            this.data[i][0] = this.select("DB/Products/pro.txt")[i][0];
+            this.data[i][1] = this.select("DB/Products/pro.txt")[i][1];
+            this.data[i][2] = this.select("DB/Products/pro.txt")[i][2];
+            this.data[i][3] = this.select("DB/Products/Category/cate.txt")[Integer
+                    .parseInt(this.select("DB/Products/pro.txt")[i][3])][1];
+            this.data[i][4] = this.select("DB/Products/pro.txt")[i][4];
+        }
+    }
+
     public String[][] GetProduct() {
 
         if (this.select("DB/Products/pro.txt").length == 0) {
@@ -28,19 +40,8 @@ public class Mange_p extends Sql {
 
     }
 
-    public void setProduct() {
-        this.data = new String[this.select("DB/Products/pro.txt").length][this.select("DB/Products/pro.txt")[0].length];
-        for (int i = 0; i < data.length; i++) {
-            this.data[i][0] = this.select("DB/Products/pro.txt")[i][0];
-            this.data[i][1] = this.select("DB/Products/pro.txt")[i][1];
-            this.data[i][2] = this.select("DB/Products/pro.txt")[i][2];
-            this.data[i][3] = this.select("DB/Products/Category/cate.txt")[Integer
-                    .parseInt(this.select("DB/Products/pro.txt")[i][3])][1];
-            this.data[i][4] = this.select("DB/Products/pro.txt")[i][4];
-        }
-    }
-
     public boolean EditProduct(String pro[]) {
+        this.DeleteCategory(Integer.parseInt(this.select("DB/Products/pro.txt")[Integer.parseInt(pro[0])][3]));
         /// edit product and category
         String product[] = { pro[0], pro[1], pro[2], "" + this.addCategory(pro[3], "DB/Products/Category/cate.txt"),
                 pro[4] };
