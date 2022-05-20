@@ -16,11 +16,11 @@ public class Mange_p extends Sql {
     public String[][] GetProduct() {
 
         if (this.select("DB/Products/pro.txt").length == 0) {
-            String product[] = { "0", "เลือกสินค้า", "0", "0", "0" };
+            String product[] = { "0", "choose Product", "0", "0", "0" };
             this.insert(product, "DB/Products/pro.txt");
-            String cate1[] = { "0", "เลือกประเภทสินค้า", "0" };
+            String cate1[] = { "0", "choose Category", "0" };
             this.insert(cate1, "DB/Products/Category/cate.txt");
-            String cate2[] = { "1", "สินค้าทั้งหมด", "0" };
+            String cate2[] = { "1", "all products", "0" };
             this.insert(cate2, "DB/Products/Category/cate.txt");
         }
         this.setProduct();

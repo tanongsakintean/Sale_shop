@@ -11,11 +11,11 @@ public class Sales implements ActionListener {
     JLabel label;
     JTextField textField, date;
     JButton btn_close, btn_search;
-    Font font = new Font("TH SarabunPSK", Font.BOLD, 30);
-    Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
+    Font font = new Font("Arial", Font.BOLD, 20);
+    Font font_textField = new Font("Arial", Font.BOLD, 18);;
 
     public void start() {
-        this.Sales = new JFrame("ระบบขายสินค้า");
+        this.Sales = new JFrame("Sale Management System");
         this.c = this.Sales.getContentPane();
         this.c.setLayout(new FlowLayout());
 
@@ -24,7 +24,7 @@ public class Sales implements ActionListener {
         this.panel.setPreferredSize(new Dimension(1000, 50));
         this.panel.setBackground(Color.decode("#ffb142"));
         this.panel.setLayout(new GridBagLayout());
-        this.label = new JLabel("จัดการสรุปยอดขาย", SwingConstants.CENTER);
+        this.label = new JLabel("Manage Sales", SwingConstants.CENTER);
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.panel.add(this.label);
@@ -40,7 +40,7 @@ public class Sales implements ActionListener {
         this.btn_close.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.btn_close.setBorderPainted(false);
         this.btn_close.setForeground(Color.white);
-        this.btn_close.setToolTipText("คลิกเพื่อปิดหน้าต่าง");
+        this.btn_close.setToolTipText("click to close");
         this.btn_close.addActionListener(this);
         this.panel.add(this.btn_close);
         this.Sales.add(this.panel);
@@ -50,7 +50,7 @@ public class Sales implements ActionListener {
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(1000, 50));
         this.panel.setLayout(new GridBagLayout());
-        this.label = new JLabel("รายการสรุปยอดขาย", SwingConstants.CENTER);
+        this.label = new JLabel("Sales Summary", SwingConstants.CENTER);
         this.label.setFont(this.font);
         this.label.setForeground(Color.BLACK);
         this.panel.add(this.label);
@@ -61,7 +61,7 @@ public class Sales implements ActionListener {
 
         this.panel = new JPanel();
         this.panel.setLayout(new FlowLayout());
-        this.label = new JLabel("กรอกวัน/เดือน/ปี");
+        this.label = new JLabel("Enter day/month/year");
         this.label.setFont(this.font);
         this.label.setForeground(Color.BLACK);
         this.panel.add(this.label);
@@ -72,14 +72,14 @@ public class Sales implements ActionListener {
         this.date.setForeground(Color.BLACK);
         this.panel.add(this.date);
 
-        this.btn_search = new JButton("ค้นหา");
+        this.btn_search = new JButton("Search");
         this.btn_search.setFont(this.font_textField);
         this.btn_search.setBackground(Color.decode("#4b7bec"));
         this.btn_search.setForeground(Color.WHITE);
         this.btn_search.setOpaque(true);
         this.btn_search.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.btn_search.setBorderPainted(false);
-        this.btn_search.setToolTipText("คลิกเพื่อค้นหาข้อมูล");
+        this.btn_search.setToolTipText("click to search");
         this.btn_search.addActionListener(this);
         this.panel.add(this.btn_search);
         this.Sales.add(this.panel);
@@ -90,7 +90,7 @@ public class Sales implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#ffb142"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ลำดับ");
+        this.label = new JLabel("No.");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -103,7 +103,7 @@ public class Sales implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#ffb142"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ชื่อผู้สั่งซื้อ");
+        this.label = new JLabel("Name");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -116,7 +116,7 @@ public class Sales implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#ffb142"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("จำนวน");
+        this.label = new JLabel("Amount");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -129,7 +129,7 @@ public class Sales implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#ffb142"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("วันที่ชำระ");
+        this.label = new JLabel("payment date");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -142,7 +142,7 @@ public class Sales implements ActionListener {
         this.panel.setPreferredSize(new Dimension(150, 40));
         this.panel.setBackground(Color.decode("#ffb142"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ราคารวมทั้งหมด");
+        this.label = new JLabel("total price");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -175,7 +175,7 @@ public class Sales implements ActionListener {
                 this.saleLists(this.mange_s.getSales(), 0);
             } else {
                 if (this.mange_s.countSearch(this.date.getText().toString()) == 0) {
-                    JOptionPane.showMessageDialog(this.Sales, "ไม่พบข้อมูลที่ค้นหา");
+                    JOptionPane.showMessageDialog(this.Sales, "The information you searched for was not found.");
                 } else {
                     this.panelSaleList.removeAll();
                     SwingUtilities.updateComponentTreeUI(this.Sales);

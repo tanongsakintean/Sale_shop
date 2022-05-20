@@ -19,22 +19,22 @@ public class App implements ActionListener {
     JButton btn_clear[];
     JTextField textField[] = new JTextField[3];
     JTextField order;
-    String txt_btn[] = { "เพิ่มสินค้า", "เพิ่มลูกค้า", "เพิ่มพนักงาน", "สรุปยอดขาย" },
+    String txt_btn[] = { "Product", "Customer", "Saler", "Sales" },
             color_btn[] = { "#27ae60", "#00a8ff", "#8c7ae6", "#ffb142" };
-    String txt_textField[] = { "สินค้า : " + (this.pro.getAmount() - 1), "ลูกค้า : " + (this.mem.getAmount(1) - 1),
-            "พนักงาน : " + (this.mem.getAmount(2) - 1) };
+    String txt_textField[] = { "products : " + (this.pro.getAmount() - 1), "customers : " + (this.mem.getAmount(1) - 1),
+            "salers : " + (this.mem.getAmount(2) - 1) };
     JComboBox<String> comboBox_pro, comboBox_cus, comboBox_cate;
     JLabel label;
     JTextField amount_TextField;
-    Font font = new Font("TH SarabunPSK", Font.BOLD, 40);
-    Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
+    Font font = new Font("Arial", Font.BOLD, 25);
+    Font font_textField = new Font("Arial", Font.BOLD, 18);
 
     public App() {
         this.menu();
     }
 
     public void menu() {
-        this.dashboard = new JFrame("ระบบการขายสินค้า");
+        this.dashboard = new JFrame("Sale Management System");
         this.c = this.dashboard.getContentPane();
         this.c.setLayout(new FlowLayout());
         this.panel = new JPanel();
@@ -68,7 +68,7 @@ public class App implements ActionListener {
             this.btn[i] = new JButton(txt_btn[i]);
             this.btn[i].setFont(this.font);
             this.btn[i].setBorderPainted(false);
-            this.btn[i].setToolTipText("คลิกเพื่อเข้าสู่หน้าต่างที่ต้องการ");
+            this.btn[i].setToolTipText("Click to enter the desired window.");
             this.btn[i].setForeground(Color.WHITE);
             this.btn[i].setOpaque(true);
             this.btn[i].setMargin(new Insets(5, 5, 5, 5));
@@ -91,7 +91,7 @@ public class App implements ActionListener {
         /// ใส่จำนวนสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(200, 100));
-        this.label = new JLabel("ใส่จำนวนสินค้า  ");
+        this.label = new JLabel("Enter amount");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -108,7 +108,7 @@ public class App implements ActionListener {
         /// เลิอกประเภทสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(200, 100));
-        this.label = new JLabel("เลือกประเภทสินค้า  ");
+        this.label = new JLabel("select category  ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -125,7 +125,7 @@ public class App implements ActionListener {
         /// เลิอกสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(200, 100));
-        this.label = new JLabel("เลือกสินค้า     ");
+        this.label = new JLabel("choose products ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -143,7 +143,7 @@ public class App implements ActionListener {
         /// เลือกลูกค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(200, 100));
-        this.label = new JLabel("เลือกลูกค้า (ส่วนลด)  ");
+        this.label = new JLabel("discount");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -161,8 +161,8 @@ public class App implements ActionListener {
         this.panel = new JPanel();
         this.panel.setLayout(new GridBagLayout());
         this.panel.setPreferredSize(new Dimension(200, 100));
-        this.btn_buy = new JButton("เพิ่มออเดอร์");
-        this.btn_buy.setToolTipText("คลิกเพื่อเพิ่มออเดอร์");
+        this.btn_buy = new JButton("add order");
+        this.btn_buy.setToolTipText("Click to add order");
         this.btn_buy.setFont(this.font_textField);
         this.btn_buy.setForeground(Color.WHITE);
         this.btn_buy.setBorderPainted(false);
@@ -184,7 +184,7 @@ public class App implements ActionListener {
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(1200, 30));
         this.panel.setLayout(new GridLayout(1, 2));
-        this.label = new JLabel("รายการสั่งซื้อ");
+        this.label = new JLabel("ORDER LIST");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -197,7 +197,7 @@ public class App implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#70a1ff"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ลำดับ");
+        this.label = new JLabel("No.");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.white);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -210,7 +210,7 @@ public class App implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#70a1ff"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("รหัสสินค้า");
+        this.label = new JLabel("Product code");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.white);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -223,7 +223,7 @@ public class App implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#70a1ff"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("สินค้า");
+        this.label = new JLabel("product");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.white);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -236,7 +236,7 @@ public class App implements ActionListener {
         this.panel.setBackground(Color.decode("#70a1ff"));
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ประเภท");
+        this.label = new JLabel("category");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.white);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -249,7 +249,7 @@ public class App implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#70a1ff"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("จำนวน");
+        this.label = new JLabel("amount");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.white);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -262,7 +262,7 @@ public class App implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#70a1ff"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ราคา(บาท)");
+        this.label = new JLabel("price (THB)");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.white);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -292,11 +292,11 @@ public class App implements ActionListener {
         this.panel = new JPanel();
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.panel.setBackground(Color.decode("#20bf6b"));
-        this.btn_pay = new JButton("ชำระเงิน");
+        this.btn_pay = new JButton("Pay");
         this.btn_pay.setFont(this.font);
         this.btn_pay.setBackground(Color.decode("#70a1ff"));
         this.btn_pay.setForeground(Color.white);
-        this.btn_pay.setToolTipText("คลิกเพื่อชำระเงิน");
+        this.btn_pay.setToolTipText("click to pay");
         this.btn_pay.setBorderPainted(false);
         this.btn_pay.setPreferredSize(new Dimension(170, 30));
         this.btn_pay.setMargin(new Insets(5, 5, 5, 5));
@@ -310,9 +310,9 @@ public class App implements ActionListener {
         this.panel = new JPanel();
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.panel.setBackground(Color.decode("#eb3b5a"));
-        this.btn_cancle = new JButton("ยกเลิก");
+        this.btn_cancle = new JButton("Cancle");
         this.btn_cancle.setBorderPainted(false);
-        this.btn_cancle.setToolTipText("คลิกเพื่อยกเลิก");
+        this.btn_cancle.setToolTipText("click to cancle");
         this.btn_cancle.setFont(this.font);
         this.btn_cancle.setBackground(Color.decode("#70a1ff"));
         this.btn_cancle.setForeground(Color.white);
@@ -347,10 +347,11 @@ public class App implements ActionListener {
             // SwingUtilities.updateComponentTreeUI(this.dashboard);
         } else if (event.getSource() == this.btn_buy) {
             if (this.amount_TextField.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "กรุณากรอกจำนวนสินค้าที่ต้องการซื้อ", "กรุณากรอกข้อมูล",
+                JOptionPane.showMessageDialog(null, "Please enter the number of products you wish to purchase.",
+                        "Please fill out",
                         JOptionPane.WARNING_MESSAGE);
             } else {
-                if (JOptionPane.showConfirmDialog(this.dashboard, "คุณต้องการเพิ่มออเดอร์สินค้าหรือไม่?", "ยืนยัน",
+                if (JOptionPane.showConfirmDialog(this.dashboard, "Would you like to add a product order?", "Confirm",
                         JOptionPane.YES_NO_OPTION) == 0) {
                     this.panelorder.removeAll();
                     SwingUtilities.updateComponentTreeUI(this.dashboard);
@@ -366,19 +367,20 @@ public class App implements ActionListener {
             }
         } else if (event.getSource() == this.btn_cancle) {
             if (this.or.getOrder().length <= 1) {
-                JOptionPane.showMessageDialog(this.dashboard, "กรุณากรอกข้อมูลออเดอร์สินค้าก่อน", "กรุณากรอกข้อมูล",
+                JOptionPane.showMessageDialog(this.dashboard, "Please fill out the order information first.",
+                        "Please fill out",
                         JOptionPane.ERROR_MESSAGE);
 
             } else {
 
-                if (JOptionPane.showConfirmDialog(this.dashboard, "คุณต้องการยกเลิกออเดอร์ทั้งหมดหรือไม่?", "ยืนยัน",
+                if (JOptionPane.showConfirmDialog(this.dashboard, "Do you want to cancel all orders?", "Confirm",
                         JOptionPane.YES_NO_OPTION) == 0) {
                     if (this.or.deleteOrder()) {
                         this.panelorder.removeAll();
                         SwingUtilities.updateComponentTreeUI(this.dashboard);
                         this.orderlist(this.or.getOrder());
                     } else {
-                        JOptionPane.showMessageDialog(null, "เกิดข้อผิดพลาดโปรดติดต่อแอดมิน", "ข้อผิดพลาด",
+                        JOptionPane.showMessageDialog(null, "An error occurred, please contact the admin.", "error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
 
@@ -387,37 +389,35 @@ public class App implements ActionListener {
         } else if (event.getSource() == this.btn_pay) {
             if (this.or.getOrder().length > 1) {
                 if (JOptionPane.showConfirmDialog(this.dashboard,
-                        "คุณต้องการชำระเงินใช่หรือไม่?", "ยืนยัน",
-                        JOptionPane.YES_NO_OPTION) == 0) {
+                        "Do you want to pay?", "Confirm", JOptionPane.YES_NO_OPTION) == 0) {
                     int money = Integer
                             .parseInt(JOptionPane.showInputDialog(this.dashboard,
-                                    "ยอดรวม : " + DecimalFormat.format(this.or.getCost()[0] - this.or.getCost()[1])
-                                            + " บาท" + " ส่วนลด : "
-                                            + DecimalFormat.format(this.or.getCost()[1]) + " บาท",
-                                    "กรอกจำนวนเงินที่รับมา",
+                                    "total : " + DecimalFormat.format(this.or.getCost()[0] - this.or.getCost()[1])
+                                            + " THB" + " Discount : "
+                                            + DecimalFormat.format(this.or.getCost()[1]) + " THB",
+                                    "Enter the amount received",
                                     JOptionPane.QUESTION_MESSAGE));
                     if (money >= (this.or.getCost()[0] - this.or.getCost()[1])) {
                         JOptionPane.showMessageDialog(this.dashboard,
-                                "เงินทอนคือ "
+                                " change is "
                                         + DecimalFormat.format(
                                                 this.or.pay(money, (this.or.getCost()[0] - this.or.getCost()[1])))
-                                        + " บาท",
-                                "การชำระเงินสำเร็จ",
+                                        + " THB",
+                                "successful payment",
                                 JOptionPane.INFORMATION_MESSAGE);
                         this.or.deleteOrder();
                         this.panelorder.removeAll();
                         SwingUtilities.updateComponentTreeUI(this.dashboard);
                     } else {
-                        JOptionPane.showMessageDialog(this.dashboard, "จำนวนเงินที่รับไม่ถูกต้อง",
-                                "การชำระเงินไม่สำเร็จโปรดลองใหม่",
+                        JOptionPane.showMessageDialog(this.dashboard, "Incorrect amount received",
+                                "Payment failed, please try again.",
                                 JOptionPane.ERROR_MESSAGE);
 
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "ไม่มีออเดอร์ที่ต้องการชำระเงิน",
-                        "ข้อผิดพลาด",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "There are no orders to pay.",
+                        "error", JOptionPane.ERROR_MESSAGE);
             }
         }
 

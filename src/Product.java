@@ -13,8 +13,8 @@ public class Product implements ActionListener {
     JTextField textField;
     JButton btn_add, btn_close;
     JButton btn_edit[], btn_del[];
-    Font font = new Font("TH SarabunPSK", Font.BOLD, 30);
-    Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
+    Font font = new Font("Arial", Font.BOLD, 20);
+    Font font_textField = new Font("Arial", Font.BOLD, 18);;
     boolean error = false;
     String data[][], row;
     Timer time;
@@ -44,7 +44,7 @@ public class Product implements ActionListener {
         } else {
             int i = 1;
             String pro[] = new String[(this.mange_p.CountCate(key) + 1)];
-            pro[0] = "เลือกสินค้า";
+            pro[0] = "choose product";
             for (int j = 0; j < this.mange_p.GetProduct().length; j++) {
                 if (this.mange_p.GetProduct()[j][3].equals(key)) {
                     pro[i] = this.mange_p.GetProduct()[j][1];
@@ -56,7 +56,7 @@ public class Product implements ActionListener {
     }
 
     public void create_head() {
-        this.Product = new JFrame("ระบบขายสินค้า");
+        this.Product = new JFrame("Sale Management System");
         this.c = this.Product.getContentPane();
         this.c.setLayout(new FlowLayout());
         /// จัดการสินค้า
@@ -64,7 +64,7 @@ public class Product implements ActionListener {
         this.panel.setPreferredSize(new Dimension(1000, 50));
         this.panel.setBackground(Color.decode("#27ae60"));
         this.panel.setLayout(new GridBagLayout());
-        this.label = new JLabel("จัดการสินค้า", SwingConstants.CENTER);
+        this.label = new JLabel("Mange Products", SwingConstants.CENTER);
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.panel.add(this.label);
@@ -80,7 +80,7 @@ public class Product implements ActionListener {
         this.btn_close.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.btn_close.setBorderPainted(false);
         this.btn_close.setForeground(Color.white);
-        this.btn_close.setToolTipText("คลิกเพื่อปิดหน้าต่าง");
+        this.btn_close.setToolTipText("Click to close the window.");
         this.btn_close.addActionListener(this);
         this.panel.add(this.btn_close);
         this.Product.add(this.panel);
@@ -89,7 +89,7 @@ public class Product implements ActionListener {
 
         /// ชื่อสินค้า
         this.panel.setPreferredSize(new Dimension(400, 50));
-        this.label = new JLabel("ชื่อสินค้า  ");
+        this.label = new JLabel("Name ");
         this.label.setPreferredSize(new Dimension(100, 50));
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
@@ -106,7 +106,7 @@ public class Product implements ActionListener {
         /// รหัสสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(400, 50));
-        this.label = new JLabel("รหัสสินค้า  ");
+        this.label = new JLabel("Code  ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -122,7 +122,7 @@ public class Product implements ActionListener {
         /// ประเภทสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(400, 50));
-        this.label = new JLabel("ประเภทสินค้า  ");
+        this.label = new JLabel("Category  ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -138,7 +138,7 @@ public class Product implements ActionListener {
         /// ราคาสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(400, 50));
-        this.label = new JLabel("ราคาสินค้า  ");
+        this.label = new JLabel("Price ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -155,9 +155,9 @@ public class Product implements ActionListener {
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(600, 50));
         this.panel.setLayout(new GridBagLayout());
-        this.btn_add = new JButton("เพิ่มสินค้า");
+        this.btn_add = new JButton("Add Product");
         this.btn_add.setFont(this.font_textField);
-        this.btn_add.setToolTipText("คลิกเพื่อเพิ่มสินค้า");
+        this.btn_add.setToolTipText("Click to add products");
         this.btn_add.setPreferredSize(new Dimension(200, 50));
         this.btn_add.setOpaque(true);
         this.btn_add.setBorderPainted(false);
@@ -184,7 +184,7 @@ public class Product implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#27ae60"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ลำดับ");
+        this.label = new JLabel("No.");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -197,7 +197,7 @@ public class Product implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#27ae60"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ชื่อสินค้า");
+        this.label = new JLabel("Name");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -210,7 +210,7 @@ public class Product implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#27ae60"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("รหัสสินค้า");
+        this.label = new JLabel("Code");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -223,7 +223,7 @@ public class Product implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#27ae60"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ประเภทสินค้า");
+        this.label = new JLabel("Category");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -236,7 +236,7 @@ public class Product implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode("#27ae60"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ราคาสินค้า");
+        this.label = new JLabel("Price");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -249,7 +249,7 @@ public class Product implements ActionListener {
         this.panel.setPreferredSize(new Dimension(180, 40));
         this.panel.setBackground(Color.decode("#27ae60"));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("จัดการ");
+        this.label = new JLabel("Manage");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -302,11 +302,11 @@ public class Product implements ActionListener {
             this.textField.setHorizontalAlignment(JTextField.CENTER);
             this.panel.add(this.textField);
 
-            this.btn_edit[i] = new JButton("แก้ไข");
+            this.btn_edit[i] = new JButton("Edit");
             this.btn_edit[i].setFont(this.font_textField);
             this.btn_edit[i].setBackground(Color.decode("#f1c40f"));
             this.btn_edit[i].setForeground(Color.WHITE);
-            this.btn_edit[i].setToolTipText("คลิกเพื่อแก้ไข");
+            this.btn_edit[i].setToolTipText("Click to edit");
             this.btn_edit[i].setBorderPainted(false);
             this.btn_edit[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
             this.btn_edit[i].setOpaque(true);
@@ -314,16 +314,16 @@ public class Product implements ActionListener {
             this.btn_edit[i].addActionListener(this);
             this.panel.add(this.btn_edit[i]);
 
-            this.btn_del[i] = new JButton("ลบ");
+            this.btn_del[i] = new JButton("Delete");
             this.btn_del[i].addActionListener(this);
             this.btn_del[i].setFont(this.font_textField);
             this.btn_del[i].setBackground(Color.decode("#e74c3c"));
-            this.btn_del[i].setToolTipText("คลิกเพื่อลบ");
+            this.btn_del[i].setToolTipText("Click to delete");
             this.btn_del[i].setForeground(Color.WHITE);
             this.btn_del[i].setBorderPainted(false);
             this.btn_del[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
             this.btn_del[i].setOpaque(true);
-            this.btn_del[i].setPreferredSize(new Dimension(80, 30));
+            this.btn_del[i].setPreferredSize(new Dimension(100, 30));
             this.panel.add(this.btn_del[i]);
         }
         this.scrollPanel = new JScrollPane(this.panel);
@@ -344,7 +344,7 @@ public class Product implements ActionListener {
             /// check ค่าว่าง textfield
             for (int i = 0; i < 4; i++) {
                 if (this.pro[i].getText().equals("")) {
-                    JOptionPane.showMessageDialog(this.Product, "กรุณากรอกให้ครบถ้วน!", "เกิดข้อผิดพลาด",
+                    JOptionPane.showMessageDialog(this.Product, "Please complete!", "error",
                             JOptionPane.ERROR_MESSAGE);
                     this.error = true;
                     break;
@@ -354,36 +354,37 @@ public class Product implements ActionListener {
             }
             if (!this.error) {
                 switch (this.btn_add.getText()) {
-                    case "เพิ่มสินค้า":
+                    case "Add Product":
                         String[] add = { this.pro[0].getText(), this.pro[1].getText(), this.pro[2].getText(),
                                 this.pro[3].getText() };
                         if (this.mange_p.AddProduct(add)) {
-                            JOptionPane.showMessageDialog(this.Product, "เพิ่มสินค้าสำเร็จ!", "สำเร็จ",
+                            JOptionPane.showMessageDialog(this.Product, "successfully added product!", "successfully",
                                     JOptionPane.INFORMATION_MESSAGE);
                             this.Product.setVisible(false);
                             this.Product.dispose();
                             this.start();
                         } else {
-                            JOptionPane.showMessageDialog(this.Product, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
-                                    "เกิดข้อผิดพลาด",
+                            JOptionPane.showMessageDialog(this.Product, "An error occurred, please try again!",
+                                    "error",
                                     JOptionPane.ERROR_MESSAGE);
                         }
 
                         break;
-                    case "แก้ไข":
-                        if (JOptionPane.showConfirmDialog(this.Product, "คุณต้องการแก้ไขสินค้าหรือไม่?", "ยืนยัน",
+                    case "Edit Product":
+                        if (JOptionPane.showConfirmDialog(this.Product, "Do you want to edit the product?", "Confirm",
                                 JOptionPane.YES_NO_OPTION) == 0) {
                             String[] edit = { this.row, this.pro[0].getText(), this.pro[1].getText(),
                                     this.pro[2].getText(), this.pro[3].getText() };
                             if (this.mange_p.EditProduct(edit)) {
-                                JOptionPane.showMessageDialog(this.Product, "แก้ไขสินค้าสำเร็จ!", "สำเร็จ",
+                                JOptionPane.showMessageDialog(this.Product, "Successfully edited the product!",
+                                        "Successfully",
                                         JOptionPane.INFORMATION_MESSAGE);
                                 this.Product.setVisible(false);
                                 this.Product.dispose();
                                 this.start();
                             } else {
-                                JOptionPane.showMessageDialog(this.Product, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
-                                        "เกิดข้อผิดพลาด",
+                                JOptionPane.showMessageDialog(this.Product, "An error occurred, please try again!",
+                                        "error",
                                         JOptionPane.ERROR_MESSAGE);
                             }
 
@@ -401,25 +402,25 @@ public class Product implements ActionListener {
                 this.pro[1].setText(this.data[i][2]);
                 this.pro[2].setText(this.data[i][3]);
                 this.pro[3].setText(this.data[i][4]);
-                this.btn_add.setText("แก้ไข");
+                this.btn_add.setText("Edit Product");
                 this.btn_add.setBackground(Color.decode("#ffb142"));
                 this.time.start();
             } else if (e.getSource() == btn_del[i]) {
                 this.row = this.data[i][0];
-                if (JOptionPane.showConfirmDialog(this.Product, "คุณต้องการลบสินค้าหรือไม่?", "ยืนยัน",
+                if (JOptionPane.showConfirmDialog(this.Product, "Do you want to delete the product?", "Confirm",
                         JOptionPane.YES_NO_OPTION) == 0) {
 
                     String[] del = { "" + this.row, this.pro[0].getText(), this.pro[1].getText(),
                             this.pro[2].getText(), this.pro[3].getText() };
                     if (this.mange_p.DeleteProduct(del)) {
-                        JOptionPane.showMessageDialog(this.Product, "ลบสินค้าสำเร็จ!", "สำเร็จ",
+                        JOptionPane.showMessageDialog(this.Product, "Delete the product successfully!", "successfully",
                                 JOptionPane.INFORMATION_MESSAGE);
                         this.Product.setVisible(false);
                         this.Product.dispose();
                         this.start();
                     } else {
-                        JOptionPane.showMessageDialog(this.Product, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
-                                "เกิดข้อผิดพลาด",
+                        JOptionPane.showMessageDialog(this.Product, "An error occurred, please try again!",
+                                "error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -428,7 +429,7 @@ public class Product implements ActionListener {
             /// check ค่าว่าง textfield
             if (this.pro[0].getText().isEmpty() && this.pro[1].getText().isEmpty() && this.pro[2].getText().isEmpty()
                     && this.pro[3].getText().isEmpty()) {
-                this.btn_add.setText("เพิ่มสินค้า");
+                this.btn_add.setText("Add Product");
                 this.btn_add.setBackground(Color.decode("#27ae60"));
                 this.time.stop();
             }

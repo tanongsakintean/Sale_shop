@@ -14,23 +14,23 @@ public class Member implements ActionListener {
     JButton btn_add, btn_close;
     JButton btn_edit[], btn_del[];
     JComboBox<String> gender;
-    String txt_gender[] = { "เลือกเพศ", "ชาย", "หญิง" }, status[] = new String[4];
-    Font font = new Font("TH SarabunPSK", Font.BOLD, 30);
-    Font font_textField = new Font("TH SarabunPSK", Font.BOLD, 25);
+    String txt_gender[] = { "choose gender", "male", "female" }, status[] = new String[4];
+    Font font = new Font("Arial", Font.BOLD, 20);
+    Font font_textField = new Font("Arial", Font.BOLD, 18);;
     String data[][], row;
     boolean error = false;
     Timer time;
 
     public void start(int status) {
         if (status == 1) {
-            this.status[0] = "จัดการลูกค้า";
+            this.status[0] = "Mange Customer";
             this.status[1] = "#00a8ff";
-            this.status[2] = "ลูกค้า";
+            this.status[2] = "Customer";
             this.status[3] = "1";
         } else if (status == 2) {
-            this.status[0] = "จัดการพนักงาน";
+            this.status[0] = "Mange Saler";
             this.status[1] = "#8c7ae6";
-            this.status[2] = "พนักงาน";
+            this.status[2] = "Saler";
             this.status[3] = "2";
         }
 
@@ -52,14 +52,14 @@ public class Member implements ActionListener {
     }
 
     public void create_head() {
-        this.Member = new JFrame("ระบบขายสินค้า");
+        this.Member = new JFrame("Sale Management System");
         this.c = this.Member.getContentPane();
         this.c.setLayout(new FlowLayout());
 
         /// จัดการสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(1000, 50));
-        this.btn_close = new JButton("ปิดหน้าต่าง");
+        this.btn_close = new JButton("Close");
         this.panel.setBackground(Color.decode(this.status[1]));
         this.panel.setLayout(new GridBagLayout());
         this.label = new JLabel(this.status[0], SwingConstants.CENTER);
@@ -74,7 +74,7 @@ public class Member implements ActionListener {
         this.btn_close.setFont(this.font_textField);
         this.btn_close.setPreferredSize(new Dimension(70, 50));
         this.btn_close.setBackground(Color.red);
-        this.btn_close.setToolTipText("คลิกเพื่อปิดหน้าต่างนี้");
+        this.btn_close.setToolTipText("Click to close");
         this.btn_close.setOpaque(true);
         this.btn_close.setCursor(new Cursor(Cursor.HAND_CURSOR));
         this.btn_close.setBorderPainted(false);
@@ -89,7 +89,7 @@ public class Member implements ActionListener {
         /// ชื่อสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(400, 50));
-        this.label = new JLabel("ชื่อ  ");
+        this.label = new JLabel("Full Name  ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -104,7 +104,7 @@ public class Member implements ActionListener {
         /// รหัสสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(400, 50));
-        this.label = new JLabel("นามสกุล  ");
+        this.label = new JLabel("Last Name  ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -119,7 +119,7 @@ public class Member implements ActionListener {
         /// ประเภทสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(400, 50));
-        this.label = new JLabel("เพศ  ");
+        this.label = new JLabel("Gender  ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -136,7 +136,7 @@ public class Member implements ActionListener {
         /// ราคาสินค้า
         this.panel = new JPanel();
         this.panel.setPreferredSize(new Dimension(400, 50));
-        this.label = new JLabel("เบอร์โทร  ");
+        this.label = new JLabel("Phone  ");
         this.label.setFont(this.font_textField);
         this.label.setForeground(Color.BLACK);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -159,8 +159,8 @@ public class Member implements ActionListener {
         this.btn_add.setBorderPainted(false);
         this.btn_add.setBackground(Color.decode(this.status[1]));
         this.btn_add.setForeground(Color.WHITE);
-        this.btn_add.setText("เพิ่ม" + this.status[2]);
-        this.btn_add.setToolTipText("คลิกเพื่อเพิ่ม" + this.status[2]);
+        this.btn_add.setText("Add" + this.status[2]);
+        this.btn_add.setToolTipText("click to" + this.status[2]);
         this.btn_add.setOpaque(true);
         this.btn_add.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.btn_add.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -182,7 +182,7 @@ public class Member implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode(this.status[1]));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ลำดับ");
+        this.label = new JLabel("No.");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -195,7 +195,7 @@ public class Member implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode(this.status[1]));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("ชื่อ");
+        this.label = new JLabel("Full Name");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -207,7 +207,7 @@ public class Member implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode(this.status[1]));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("สกุล");
+        this.label = new JLabel("Last Name");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -219,7 +219,7 @@ public class Member implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode(this.status[1]));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("เพศ");
+        this.label = new JLabel("Gender");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -232,7 +232,7 @@ public class Member implements ActionListener {
         this.panel.setPreferredSize(new Dimension(140, 40));
         this.panel.setBackground(Color.decode(this.status[1]));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("เบอร์โทร");
+        this.label = new JLabel("Phone");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -245,7 +245,7 @@ public class Member implements ActionListener {
         this.panel.setPreferredSize(new Dimension(180, 40));
         this.panel.setBackground(Color.decode(this.status[1]));
         this.panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.label = new JLabel("จัดการ");
+        this.label = new JLabel("Manage");
         this.label.setFont(this.font);
         this.label.setForeground(Color.WHITE);
         this.label.setHorizontalAlignment(JLabel.CENTER);
@@ -297,11 +297,11 @@ public class Member implements ActionListener {
             this.textField.setFont(this.font_textField);
             this.panel.add(this.textField);
 
-            this.btn_edit[i] = new JButton("แก้ไข");
+            this.btn_edit[i] = new JButton("Edit");
             this.btn_edit[i].setFont(this.font_textField);
             this.btn_edit[i].setBackground(Color.decode("#f1c40f"));
             this.btn_edit[i].setForeground(Color.WHITE);
-            this.btn_edit[i].setToolTipText("คลิกเพื่อแก้ไข");
+            this.btn_edit[i].setToolTipText("click to edit");
             this.btn_edit[i].setBorderPainted(false);
             this.btn_edit[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
             this.btn_edit[i].setOpaque(true);
@@ -309,16 +309,16 @@ public class Member implements ActionListener {
             this.btn_edit[i].addActionListener(this);
             this.panel.add(this.btn_edit[i]);
 
-            this.btn_del[i] = new JButton("ลบ");
+            this.btn_del[i] = new JButton("Delete");
             this.btn_del[i].addActionListener(this);
             this.btn_del[i].setFont(this.font_textField);
             this.btn_del[i].setBackground(Color.decode("#e74c3c"));
-            this.btn_del[i].setToolTipText("คลิกเพื่อลบ");
+            this.btn_del[i].setToolTipText("click to delete");
             this.btn_del[i].setForeground(Color.WHITE);
             this.btn_del[i].setBorderPainted(false);
             this.btn_del[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
             this.btn_del[i].setOpaque(true);
-            this.btn_del[i].setPreferredSize(new Dimension(80, 30));
+            this.btn_del[i].setPreferredSize(new Dimension(100, 30));
             this.panel.add(this.btn_del[i]);
         }
         this.scrollPanel = new JScrollPane(this.panel);
@@ -341,7 +341,7 @@ public class Member implements ActionListener {
             if (this.gender.getSelectedIndex() != 0) {
                 for (int i = 0; i < 3; i++) {
                     if (this.mem[i].getText().equals("")) {
-                        JOptionPane.showMessageDialog(this.Member, "กรุณากรอกให้ครบถ้วน!", "เกิดข้อผิดพลาด",
+                        JOptionPane.showMessageDialog(this.Member, "Please complete!", "error",
                                 JOptionPane.ERROR_MESSAGE);
                         this.error = true;
                         break;
@@ -350,41 +350,43 @@ public class Member implements ActionListener {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(this.Member, "กรุณาเลือกเพศ!", "เกิดข้อผิดพลาด",
+                JOptionPane.showMessageDialog(this.Member, "please select gender!", "error",
                         JOptionPane.ERROR_MESSAGE);
                 this.error = true;
             }
 
             if (!this.error) {
-                if (this.btn_add.getText().equals("เพิ่ม" + this.status[2])) {
+                if (this.btn_add.getText().equals("Add" + this.status[2])) {
                     String[] add = { this.mem[0].getText(), this.mem[1].getText(),
                             this.gender.getSelectedItem().toString(), this.mem[2].getText(), this.status[3] };
                     if (this.mange_m.AddMember(add, Integer.parseInt(this.status[3]))) {
-                        JOptionPane.showMessageDialog(this.Member, "เพิ่ม" + this.status[2] + "สำเร็จ!", "สำเร็จ",
+                        JOptionPane.showMessageDialog(this.Member, "add" + this.status[2] + "successfully!",
+                                "successfully",
                                 JOptionPane.INFORMATION_MESSAGE);
                         this.Member.setVisible(false);
                         this.Member.dispose();
                         this.start(Integer.parseInt(this.status[3]));
                     } else {
-                        JOptionPane.showMessageDialog(this.Member, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
-                                "เกิดข้อผิดพลาด",
+                        JOptionPane.showMessageDialog(this.Member, "An error occurred, please try again!",
+                                "error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    if (JOptionPane.showConfirmDialog(this.Member, "คุณต้องการแก้ไข" + this.status[2] + "หรือไม่?",
-                            "ยืนยัน",
+                    if (JOptionPane.showConfirmDialog(this.Member, "you want to edit" + this.status[2] + "or not?",
+                            "Confirm",
                             JOptionPane.YES_NO_OPTION) == 0) {
                         String[] edit = { this.row, this.mem[0].getText(), this.mem[1].getText(),
                                 this.gender.getSelectedItem().toString(), this.mem[2].getText(), this.status[3] };
                         if (this.mange_m.EditMember(edit, Integer.parseInt(this.status[3]))) {
-                            JOptionPane.showMessageDialog(this.Member, "แก้ไข" + this.status[2] + "สำเร็จ!", "สำเร็จ",
+                            JOptionPane.showMessageDialog(this.Member, "Edit" + this.status[2] + "successfully!",
+                                    "successfully",
                                     JOptionPane.INFORMATION_MESSAGE);
                             this.Member.setVisible(false);
                             this.Member.dispose();
                             this.start(Integer.parseInt(this.status[3]));
                         } else {
-                            JOptionPane.showMessageDialog(this.Member, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
-                                    "เกิดข้อผิดพลาด",
+                            JOptionPane.showMessageDialog(this.Member, "An error occurred, please try again!",
+                                    "error",
                                     JOptionPane.ERROR_MESSAGE);
                         }
 
@@ -405,26 +407,27 @@ public class Member implements ActionListener {
                         this.gender.setSelectedIndex(j);
                     }
                 }
-                this.btn_add.setText("แก้ไข");
+                this.btn_add.setText("Edit");
                 this.btn_add.setBackground(Color.decode("#ffb142"));
                 this.time.start();
             } else if (e.getSource() == btn_del[i]) {
                 this.row = this.data[i][0];
-                if (JOptionPane.showConfirmDialog(this.Member, "คุณต้องการลบ" + this.status[2] + "หรือไม่?",
-                        "ยืนยัน",
+                if (JOptionPane.showConfirmDialog(this.Member, "you want to delete" + this.status[2] + "or not?",
+                        "confirm",
                         JOptionPane.YES_NO_OPTION) == 0) {
                     String[] del = { this.row, this.mem[0].getText(), this.mem[1].getText(),
                             this.gender.getSelectedItem().toString(), this.mem[2].getText(), this.status[3] };
 
                     if (this.mange_m.DeleteMember(del, Integer.parseInt(this.status[3]))) {
-                        JOptionPane.showMessageDialog(this.Member, "ลบ" + this.status[2] + "สำเร็จ!", "สำเร็จ",
+                        JOptionPane.showMessageDialog(this.Member, "Delete" + this.status[2] + "successfully!",
+                                "successfully",
                                 JOptionPane.INFORMATION_MESSAGE);
                         this.Member.setVisible(false);
                         this.Member.dispose();
                         this.start(Integer.parseInt(this.status[3]));
                     } else {
-                        JOptionPane.showMessageDialog(this.Member, "เกิดข้อผิดพลาดโปรดลองอีกครั้ง!",
-                                "เกิดข้อผิดพลาด",
+                        JOptionPane.showMessageDialog(this.Member, "An error occurred, please try again!",
+                                "error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -433,7 +436,7 @@ public class Member implements ActionListener {
             /// check ค่าว่าง textfield
             if (this.mem[0].getText().isEmpty() && this.mem[1].getText().isEmpty() && this.mem[2].getText().isEmpty()
                     && this.gender.getSelectedIndex() == 0) {
-                this.btn_add.setText("เพิ่ม" + this.status[2]);
+                this.btn_add.setText("Add" + this.status[2]);
                 this.btn_add.setBackground(Color.decode(this.status[1]));
                 this.time.stop();
             }

@@ -55,8 +55,6 @@ public class Mange_o extends Sql {
                     cost[1] += 40;
                 } else if (Integer.parseInt(this.data[i][4]) > 10) {
                     cost[1] += 100;
-                } else {
-                    cost[1] += 20;
                 }
 
             } else {
@@ -100,8 +98,6 @@ public class Mange_o extends Sql {
                         countDiscount += 40;
                     } else if (Integer.parseInt(this.data[j][4]) > 10) {
                         countDiscount += 100;
-                    } else {
-                        countDiscount += 20;
                     }
                 }
             }
