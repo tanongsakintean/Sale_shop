@@ -1,6 +1,5 @@
 public class Order {
     private Mange_o Mange_o = new Mange_o();
-    private String[][] data;
 
     public void addOrder(String[] data) {
         this.Mange_o.setOrder(data);

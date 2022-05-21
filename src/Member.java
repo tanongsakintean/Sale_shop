@@ -356,29 +356,15 @@ public class Member implements ActionListener {
             }
 
             if (!this.error) {
-                if (this.btn_add.getText().equals("Add" + this.status[2])) {
-                    String[] add = { this.mem[0].getText(), this.mem[1].getText(),
-                            this.gender.getSelectedItem().toString(), this.mem[2].getText(), this.status[3] };
-                    if (this.mange_m.AddMember(add, Integer.parseInt(this.status[3]))) {
-                        JOptionPane.showMessageDialog(this.Member, "add" + this.status[2] + "successfully!",
-                                "successfully",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        this.Member.setVisible(false);
-                        this.Member.dispose();
-                        this.start(Integer.parseInt(this.status[3]));
-                    } else {
-                        JOptionPane.showMessageDialog(this.Member, "An error occurred, please try again!",
-                                "error",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    if (JOptionPane.showConfirmDialog(this.Member, "you want to edit" + this.status[2] + "or not?",
-                            "Confirm",
-                            JOptionPane.YES_NO_OPTION) == 0) {
-                        String[] edit = { this.row, this.mem[0].getText(), this.mem[1].getText(),
-                                this.gender.getSelectedItem().toString(), this.mem[2].getText(), this.status[3] };
-                        if (this.mange_m.EditMember(edit, Integer.parseInt(this.status[3]))) {
-                            JOptionPane.showMessageDialog(this.Member, "Edit" + this.status[2] + "successfully!",
+                if (this.checkType()) {
+                    if (this.btn_add.getText().equals("Add" + this.status[2])) {
+                        String[] add = { this.mem[0].getText().toString().trim(),
+                                this.mem[1].getText().toString().trim(),
+                                this.gender.getSelectedItem().toString(), this.mem[2].getText().toString().trim(),
+                                this.status[3] };
+
+                        if (this.mange_m.AddMember(add, Integer.parseInt(this.status[3]))) {
+                            JOptionPane.showMessageDialog(this.Member, "add" + this.status[2] + "successfully!",
                                     "successfully",
                                     JOptionPane.INFORMATION_MESSAGE);
                             this.Member.setVisible(false);
@@ -389,13 +375,34 @@ public class Member implements ActionListener {
                                     "error",
                                     JOptionPane.ERROR_MESSAGE);
                         }
+                    } else {
+                        if (JOptionPane.showConfirmDialog(this.Member, "you want to edit" + this.status[2] + "or not?",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION) == 0) {
+                            String[] edit = { this.row, this.mem[0].getText(), this.mem[1].getText(),
+                                    this.gender.getSelectedItem().toString(), this.mem[2].getText(), this.status[3] };
+                            if (this.mange_m.EditMember(edit, Integer.parseInt(this.status[3]))) {
+                                JOptionPane.showMessageDialog(this.Member, "Edit" + this.status[2] + "successfully!",
+                                        "successfully",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                                this.Member.setVisible(false);
+                                this.Member.dispose();
+                                this.start(Integer.parseInt(this.status[3]));
+                            } else {
+                                JOptionPane.showMessageDialog(this.Member, "An error occurred, please try again!",
+                                        "error",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
 
+                        }
                     }
                 }
-
             }
+
         }
-        for (int i = 0; i < this.data.length; i++) {
+        for (
+
+                int i = 0; i < this.data.length; i++) {
             /// แก้ไขสินค้า
             if (e.getSource() == btn_edit[i]) {
                 this.row = this.data[i][0];
@@ -440,6 +447,28 @@ public class Member implements ActionListener {
                 this.btn_add.setBackground(Color.decode(this.status[1]));
                 this.time.stop();
             }
+        }
+    }
+
+    public boolean checkType() {
+        try {
+            if (this.mem[2].getText().toString().length() == 10) {
+
+                for (int i = 0; i < 10; i++) {
+                    Integer.parseInt(this.mem[2].getText().toString().substring(i, i + 1));
+                }
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(this.Member, "Please fill phone number 10 character", "error",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this.Member, "Please fill phone number 10 character type  number only!",
+                    "error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 

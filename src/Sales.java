@@ -1,15 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.*;
 
 public class Sales implements ActionListener {
     private Mange_s mange_s = new Mange_s();
     JFrame Sales;
+    DecimalFormat DecimalFormat = new DecimalFormat("#,###,###,###.#");
     Container c;
-    JPanel panel, panelSaleList;
+    JPanel panel, panelSaleList, panelTotal;
     JScrollPane scrollPanel;
     JLabel label;
-    JTextField textField, date;
+    JTextField textField, date, total;
     JButton btn_close, btn_search;
     Font font = new Font("Arial", Font.BOLD, 20);
     Font font_textField = new Font("Arial", Font.BOLD, 18);;
@@ -61,7 +63,7 @@ public class Sales implements ActionListener {
 
         this.panel = new JPanel();
         this.panel.setLayout(new FlowLayout());
-        this.label = new JLabel("Enter day/month/year");
+        this.label = new JLabel("Enter Date ex. 01/01/2560");
         this.label.setFont(this.font);
         this.label.setForeground(Color.BLACK);
         this.panel.add(this.label);
@@ -153,10 +155,11 @@ public class Sales implements ActionListener {
         this.panelSaleList = new JPanel();
         this.panelSaleList.setLayout(new FlowLayout());
         this.panelSaleList.setPreferredSize(new Dimension(730, (120 * (this.mange_s.getSales().length / 2))));
-        this.saleLists(this.mange_s.getSales(), 0);
+        this.saleLists(this.mange_s.getSales());
         this.scrollPanel = new JScrollPane(this.panelSaleList);
         this.scrollPanel.setPreferredSize(new Dimension(750, 400));
         this.Sales.add(this.scrollPanel);
+        this.newLine(10);
 
         this.Sales.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.Sales.setSize(1200, 1113);
@@ -169,17 +172,19 @@ public class Sales implements ActionListener {
             this.Sales.dispose();
             new App();
         } else if (event.getSource() == this.btn_search) {
+
             if (this.date.getText().toString().trim().equals("")) {
                 this.panelSaleList.removeAll();
                 SwingUtilities.updateComponentTreeUI(this.Sales);
-                this.saleLists(this.mange_s.getSales(), 0);
+                this.saleLists(this.mange_s.getSales());
+
             } else {
                 if (this.mange_s.countSearch(this.date.getText().toString()) == 0) {
                     JOptionPane.showMessageDialog(this.Sales, "The information you searched for was not found.");
                 } else {
                     this.panelSaleList.removeAll();
                     SwingUtilities.updateComponentTreeUI(this.Sales);
-                    this.saleLists(this.mange_s.search(this.date.getText().toString()), 1);
+                    this.saleLists(this.mange_s.search(this.date.getText().toString()));
                 }
 
             }
@@ -188,13 +193,10 @@ public class Sales implements ActionListener {
 
     }
 
-    public void saleLists(String[][] data, int type) {
-        int count = 1;
-        System.out.println(data.length);
+    public void saleLists(String[][] data) {
+        int count = 1, total = 0;
         for (int i = 0; i < data.length; i++) {
             if (data[i][1] != null) {
-                System.out.println(11111);
-                System.out.println(data[i][3]);
                 this.textField = new JTextField(8);
                 this.textField.setEditable(false);
                 this.textField.setFont(this.font_textField);
@@ -222,17 +224,44 @@ public class Sales implements ActionListener {
                 this.textField.setText("" + data[i][3]);
                 this.textField.setHorizontalAlignment(JTextField.CENTER);
                 this.panelSaleList.add(this.textField);
+
                 this.textField = new JTextField(8);
                 this.textField.setEditable(false);
                 this.textField.setFont(this.font_textField);
-
-                this.textField.setText("" + data[i][4]);
+                this.textField.setText(DecimalFormat.format(Integer.parseInt(data[i][4])));
                 this.textField.setHorizontalAlignment(JTextField.CENTER);
                 this.panelSaleList.add(this.textField);
+                total += Double.parseDouble(data[i][4]);
                 count++;
             }
         }
+        if (total != 0) {
+            this.textField = new JTextField(26);
+            this.textField.setEditable(false);
+            this.textField.setFont(this.font_textField);
+            this.textField.setBackground(Color.decode("#eeeeee"));
+            this.textField.setBorder(BorderFactory.createLineBorder(Color.decode("#eeeeee")));
+            this.textField.setText("");
+            this.textField.setHorizontalAlignment(JTextField.CENTER);
+            this.panelSaleList.add(this.textField);
 
+            this.textField = new JTextField(8);
+            this.textField.setEditable(false);
+            this.textField.setFont(this.font_textField);
+            this.textField.setText("Total");
+            this.textField.setHorizontalAlignment(JTextField.CENTER);
+            this.textField.setEditable(false);
+            this.panelSaleList.add(this.textField);
+
+            this.textField = new JTextField(8);
+            this.textField.setEditable(false);
+            this.textField.setFont(this.font_textField);
+            this.textField.setText(DecimalFormat.format(total));
+            this.textField.setHorizontalAlignment(JTextField.CENTER);
+            this.panelSaleList.add(this.textField);
+        } else {
+            JOptionPane.showMessageDialog(this.Sales, "The information you searched for was not found.");
+        }
     }
 
     public void border() {

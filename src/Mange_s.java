@@ -36,4 +36,5 @@ public class Mange_s extends Sql {
         return data;
 
     }
+
 }

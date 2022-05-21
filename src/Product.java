@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.*;
 
 public class Product implements ActionListener {
     private Mange_p mange_p = new Mange_p();
+    DecimalFormat DecimalFormat = new DecimalFormat("#,###,###,###");
     JFrame Product;
     Container c;
     JPanel panel;
@@ -298,7 +300,7 @@ public class Product implements ActionListener {
             this.textField = new JTextField(8);
             this.textField.setEditable(false);
             this.textField.setFont(this.font_textField);
-            this.textField.setText(this.data[i][4]);
+            this.textField.setText(DecimalFormat.format(Integer.parseInt(this.data[i][4])));
             this.textField.setHorizontalAlignment(JTextField.CENTER);
             this.panel.add(this.textField);
 
@@ -353,18 +355,28 @@ public class Product implements ActionListener {
                 }
             }
             if (!this.error) {
+
                 switch (this.btn_add.getText()) {
                     case "Add Product":
-                        String[] add = { this.pro[0].getText(), this.pro[1].getText(), this.pro[2].getText(),
-                                this.pro[3].getText() };
-                        if (this.mange_p.AddProduct(add)) {
-                            JOptionPane.showMessageDialog(this.Product, "successfully added product!", "successfully",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                            this.Product.setVisible(false);
-                            this.Product.dispose();
-                            this.start();
+                        String[] add = { this.pro[0].getText().toString().trim(),
+                                this.pro[1].getText().toString().trim(),
+                                this.pro[2].getText().toString().trim(),
+                                this.pro[3].getText().toString().trim() };
+                        if (this.checkType()) {
+                            if (this.mange_p.AddProduct(add)) {
+                                JOptionPane.showMessageDialog(this.Product, "successfully added product!",
+                                        "successfully",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                                this.Product.setVisible(false);
+                                this.Product.dispose();
+                                this.start();
+                            } else {
+                                JOptionPane.showMessageDialog(this.Product, "An error occurred, please try again!",
+                                        "error",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(this.Product, "An error occurred, please try again!",
+                            JOptionPane.showMessageDialog(this.Product, "Please enter the correct type!",
                                     "error",
                                     JOptionPane.ERROR_MESSAGE);
                         }
@@ -375,17 +387,19 @@ public class Product implements ActionListener {
                                 JOptionPane.YES_NO_OPTION) == 0) {
                             String[] edit = { this.row, this.pro[0].getText(), this.pro[1].getText(),
                                     this.pro[2].getText(), this.pro[3].getText() };
-                            if (this.mange_p.EditProduct(edit)) {
-                                JOptionPane.showMessageDialog(this.Product, "Successfully edited the product!",
-                                        "Successfully",
-                                        JOptionPane.INFORMATION_MESSAGE);
-                                this.Product.setVisible(false);
-                                this.Product.dispose();
-                                this.start();
-                            } else {
-                                JOptionPane.showMessageDialog(this.Product, "An error occurred, please try again!",
-                                        "error",
-                                        JOptionPane.ERROR_MESSAGE);
+                            if (this.checkType()) {
+                                if (this.mange_p.EditProduct(edit)) {
+                                    JOptionPane.showMessageDialog(this.Product, "Successfully edited the product!",
+                                            "Successfully",
+                                            JOptionPane.INFORMATION_MESSAGE);
+                                    this.Product.setVisible(false);
+                                    this.Product.dispose();
+                                    this.start();
+                                } else {
+                                    JOptionPane.showMessageDialog(this.Product, "An error occurred, please try again!",
+                                            "error",
+                                            JOptionPane.ERROR_MESSAGE);
+                                }
                             }
 
                         }
@@ -433,6 +447,15 @@ public class Product implements ActionListener {
                 this.btn_add.setBackground(Color.decode("#27ae60"));
                 this.time.stop();
             }
+        }
+    }
+
+    public boolean checkType() {
+        try {
+            Integer.parseInt(this.pro[3].getText().toString());
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 

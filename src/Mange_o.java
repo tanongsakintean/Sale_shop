@@ -2,7 +2,7 @@ import java.util.Date;
 import java.text.*;
 
 public class Mange_o extends Sql {
-    DecimalFormat DecimalFormat = new DecimalFormat("#,###,###,###.0");
+    DecimalFormat DecimalFormat = new DecimalFormat("#,###,###,###");
     private String[][] pro = this.select("DB/Products/pro.txt");
     private String[][] data;
     private String cus = "";
@@ -106,7 +106,7 @@ public class Mange_o extends Sql {
                     1), this.data[id][6],
                     "" + amount,
                     "" + new SimpleDateFormat("dd/MM/yyyy").format(new Date()),
-                    "" + DecimalFormat.format(((amount * Integer.parseInt(this.data[id][5])) - countDiscount)) };
+                    "" + ((amount * Integer.parseInt(this.data[id][5])) - countDiscount) };
             this.insert(payment, "DB/Sales/sales.txt");
         }
     }

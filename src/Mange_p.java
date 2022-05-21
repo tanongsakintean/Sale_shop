@@ -42,7 +42,6 @@ public class Mange_p extends Sql {
 
     public boolean EditProduct(String pro[]) {
         this.DeleteCategory(Integer.parseInt(this.select("DB/Products/pro.txt")[Integer.parseInt(pro[0])][3]));
-        /// edit product and category
         String product[] = { pro[0], pro[1], pro[2], "" + this.addCategory(pro[3], "DB/Products/Category/cate.txt"),
                 pro[4] };
         return this.update(product, "DB/Products/pro.txt");
