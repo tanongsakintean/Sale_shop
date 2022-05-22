@@ -411,18 +411,18 @@ public class App implements ActionListener {
             if (this.or.getOrder().length > 1) {
                 if (JOptionPane.showConfirmDialog(this.dashboard,
                         "Do you want to pay?", "Confirm", JOptionPane.YES_NO_OPTION) == 0) {
-                    int money = Integer
-                            .parseInt(JOptionPane.showInputDialog(this.dashboard,
-                                    "total : " + DecimalFormat.format(this.or.getCost()[0] - this.or.getCost()[1])
-                                            + " THB" + " Discount : "
-                                            + DecimalFormat.format(this.or.getCost()[1]) + " THB",
-                                    "Enter the amount received",
-                                    JOptionPane.QUESTION_MESSAGE));
-                    if (money >= (this.or.getCost()[0] - this.or.getCost()[1])) {
+                    int[] cost = this.or.getCost();
+                    int money = Integer.parseInt(JOptionPane.showInputDialog(this.dashboard,
+                            "total : " + DecimalFormat.format(cost[0] - cost[1])
+                                    + " THB" + " Discount : "
+                                    + DecimalFormat.format(cost[1]) + " THB",
+                            "Enter the amount received",
+                            JOptionPane.QUESTION_MESSAGE));
+                    if (money >= (cost[0] - cost[1])) {
                         JOptionPane.showMessageDialog(this.dashboard,
                                 " change is "
                                         + DecimalFormat.format(
-                                                this.or.pay(money, (this.or.getCost()[0] - this.or.getCost()[1])))
+                                                this.or.pay(money, (cost[0] - cost[1])))
                                         + " THB",
                                 "successful payment",
                                 JOptionPane.INFORMATION_MESSAGE);

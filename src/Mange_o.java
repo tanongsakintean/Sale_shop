@@ -50,19 +50,18 @@ public class Mange_o extends Sql {
     public int[] CaleCost() {
         int cost[] = new int[2];
         for (int i = 1; i < this.data.length; i++) {
-            if (!this.data[i][6].equals("0")) {
-                System.out.println(this.data[i][6]);
+            if (this.data[i][6].equals("0")) {
+                cost[1] += 0;
+                this.data[i][6] = "GUEST";
+            } else {
                 if (Integer.parseInt(this.data[i][4]) >= 5) {
                     cost[1] += 40;
                 } else if (Integer.parseInt(this.data[i][4]) >= 10) {
                     cost[1] += 100;
-                }else{
+                } else {
                     cost[1] += 20;
                 }
 
-            } else {
-                System.out.print("true ");
-                cost[1] += 0;
             }
             cost[0] += (Integer.parseInt(this.data[i][5]) * Integer.parseInt(this.data[i][4]));
         }
@@ -98,11 +97,18 @@ public class Mange_o extends Sql {
                 if (cus.split(",")[i].equals(this.data[j][6])) {
                     id = Integer.parseInt(this.data[j][0]);
                     amount += Integer.parseInt(this.data[j][4]);
-                    if (Integer.parseInt(this.data[j][4]) > 5) {
-                        countDiscount += 40;
-                    } else if (Integer.parseInt(this.data[j][4]) > 10) {
-                        countDiscount += 100;
+                    if (this.data[j][6].equals("GUEST")) {
+                        countDiscount += 0;
+                    } else {
+                        if (Integer.parseInt(this.data[j][4]) >= 5) {
+                            countDiscount += 40;
+                        } else if (Integer.parseInt(this.data[j][4]) >= 10) {
+                            countDiscount += 100;
+                        } else {
+                            countDiscount += 20;
+                        }
                     }
+
                 }
             }
 
