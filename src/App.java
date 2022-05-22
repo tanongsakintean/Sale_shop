@@ -275,7 +275,6 @@ public class App implements ActionListener {
         /// รายการสั่งซื้อ
         this.panelorder = new JPanel();
         this.panelorder.setLayout(new FlowLayout());
-        /// config height of panel
         this.panelorder.setPreferredSize(new Dimension(880, (150 * (this.or.getOrder().length / 2))));
         this.orderlist(this.or.getOrder());
         this.scrollPanel = new JScrollPane(this.panelorder);
@@ -351,21 +350,31 @@ public class App implements ActionListener {
                         "Please fill out",
                         JOptionPane.WARNING_MESSAGE);
             } else {
-                if (JOptionPane.showConfirmDialog(this.dashboard, "Would you like to add a product order?", "Confirm",
-                        JOptionPane.YES_NO_OPTION) == 0) {
-                    this.panelorder.removeAll();
-                    SwingUtilities.updateComponentTreeUI(this.dashboard);
-                    String[] data = { this.amount_TextField.getText(), this.comboBox_cate.getSelectedItem().toString(),
-                            this.comboBox_pro.getSelectedItem().toString(),
-                            this.comboBox_cus.getSelectedItem().toString() };
-                    this.or.addOrder(data);
-                    this.orderlist(this.or.getOrder());
-                    this.amount_TextField.setText("");
-                    this.comboBox_pro.setSelectedIndex(0);
-                    this.comboBox_cus.setSelectedIndex(0);
+                if (this.checkType()) {
+                    if (JOptionPane.showConfirmDialog(this.dashboard, "Would you like to add a product order?",
+                            "Confirm",
+                            JOptionPane.YES_NO_OPTION) == 0) {
+                        this.panelorder.removeAll();
+                        SwingUtilities.updateComponentTreeUI(this.dashboard);
+                        String[] data = { this.amount_TextField.getText(),
+                                this.comboBox_cate.getSelectedItem().toString(),
+                                this.comboBox_pro.getSelectedItem().toString(),
+                                this.comboBox_cus.getSelectedItem().toString() };
+                        this.or.addOrder(data);
+                        this.orderlist(this.or.getOrder());
+                        this.amount_TextField.setText("");
+                        this.comboBox_pro.setSelectedIndex(0);
+                        this.comboBox_cus.setSelectedIndex(0);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this.dashboard, "Please enter the correct type!",
+                            "error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
-        } else if (event.getSource() == this.btn_cancle) {
+        } else if (event.getSource() == this.btn_cancle)
+
+        {
             if (this.or.getOrder().length <= 1) {
                 JOptionPane.showMessageDialog(this.dashboard, "Please fill out the order information first.",
                         "Please fill out",
@@ -481,6 +490,15 @@ public class App implements ActionListener {
             }
         }
 
+    }
+
+    public boolean checkType() {
+        try {
+            Integer.parseInt(this.amount_TextField.getText().toString().trim());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void border() {
