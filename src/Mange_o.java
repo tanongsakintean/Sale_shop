@@ -52,10 +52,12 @@ public class Mange_o extends Sql {
         for (int i = 1; i < this.data.length; i++) {
             if (!this.data[i][6].equals("0")) {
                 System.out.println(this.data[i][6]);
-                if (Integer.parseInt(this.data[i][4]) > 5) {
+                if (Integer.parseInt(this.data[i][4]) >= 5) {
                     cost[1] += 40;
-                } else if (Integer.parseInt(this.data[i][4]) > 10) {
+                } else if (Integer.parseInt(this.data[i][4]) >= 10) {
                     cost[1] += 100;
+                }else{
+                    cost[1] += 20;
                 }
 
             } else {
