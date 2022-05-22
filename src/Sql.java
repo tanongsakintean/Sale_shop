@@ -174,13 +174,12 @@ public class Sql {
     }
 
     public boolean update(String[] data, String path) {
-
         File file = new File(path);
-        String[][] data1 = this.select(path);
-        for (int i = 0; i < data1.length; i++) {
-            if (data1[i][0].equals(data[0])) {
-                for (int j = 0; j < data1[i].length; j++) {
-                    data1[i][j] = data[j];
+        this.data = this.select(path);
+        for (int i = 0; i < this.data.length; i++) {
+            if (this.data[i][0].equals(data[0])) {
+                for (int j = 0; j < this.data[i].length; j++) {
+                    this.data[i][j] = data[j];
                 }
             }
         }
@@ -190,9 +189,9 @@ public class Sql {
                 file.createNewFile();
             }
             this.out = new BufferedWriter(new FileWriter(file));
-            for (int i = 0; i < data1.length; i++) {
-                for (int j = 0; j < data1[i].length; j++) {
-                    this.out.write(data1[i][j] + ",");
+            for (int i = 0; i < this.data.length; i++) {
+                for (int j = 0; j < this.data[i].length; j++) {
+                    this.out.write(this.data[i][j] + ",");
                 }
                 this.out.write("\n");
             }

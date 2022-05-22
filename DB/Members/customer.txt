@@ -1,2 +1,2 @@
 0,GUEST,,0,0,0,
-5,robert,been,ชาย,0957203908,1,
+5,robert,been,female,0957203908,1,
