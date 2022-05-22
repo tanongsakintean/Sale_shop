@@ -49,8 +49,9 @@ public class Mange_o extends Sql {
 
     public int[] CaleCost() {
         int cost[] = new int[2];
-        for (int i = 0; i < this.data.length; i++) {
-            if (Integer.parseInt(this.data[i][0]) != 0) {
+        for (int i = 1; i < this.data.length; i++) {
+            if (!this.data[i][6].equals("0")) {
+                System.out.println(this.data[i][6]);
                 if (Integer.parseInt(this.data[i][4]) > 5) {
                     cost[1] += 40;
                 } else if (Integer.parseInt(this.data[i][4]) > 10) {
@@ -58,6 +59,7 @@ public class Mange_o extends Sql {
                 }
 
             } else {
+                System.out.print("true ");
                 cost[1] += 0;
             }
             cost[0] += (Integer.parseInt(this.data[i][5]) * Integer.parseInt(this.data[i][4]));

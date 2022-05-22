@@ -6,10 +6,10 @@ import javax.swing.JScrollPane;
 
 public class App implements ActionListener {
     DecimalFormat DecimalFormat = new DecimalFormat("#,###,###,###");
-    Product pro = new Product();
-    Order or = new Order();
-    Sales sa = new Sales();
-    Member mem = new Member();
+    private Product pro = new Product();
+    private Order or = new Order();
+    private Sales sa = new Sales();
+    private Member mem = new Member();
     JFrame dashboard;
     Container c;
     JScrollPane scrollPanel;
@@ -19,9 +19,10 @@ public class App implements ActionListener {
     JButton btn_clear[];
     JTextField textField[] = new JTextField[3];
     JTextField order;
-    String txt_btn[] = { "Product", "Customer", "Saler", "Sales" },
+    private String txt_btn[] = { "Product", "Customer", "Saler", "Sales" },
             color_btn[] = { "#27ae60", "#00a8ff", "#8c7ae6", "#ffb142" };
-    String txt_textField[] = { "products : " + (this.pro.getAmount() - 1), "customers : " + (this.mem.getAmount(1) - 1),
+    private String txt_textField[] = { "products : " + (this.pro.getAmount() - 1),
+            "customers : " + (this.mem.getAmount(1) - 1),
             "salers : " + (this.mem.getAmount(2) - 1) };
     JComboBox<String> comboBox_pro, comboBox_cus, comboBox_cate;
     JLabel label;
@@ -276,7 +277,7 @@ public class App implements ActionListener {
         this.panelorder = new JPanel();
         this.panelorder.setLayout(new FlowLayout());
         this.panelorder.setPreferredSize(new Dimension(880, (150 * (this.or.getOrder().length / 2))));
-        this.orderlist(this.or.getOrder());
+        this.orderList(this.or.getOrder());
         this.scrollPanel = new JScrollPane(this.panelorder);
         this.scrollPanel.setPreferredSize(new Dimension(920, 150));
         this.dashboard.add(this.scrollPanel);
@@ -351,20 +352,31 @@ public class App implements ActionListener {
                         JOptionPane.WARNING_MESSAGE);
             } else {
                 if (this.checkType()) {
-                    if (JOptionPane.showConfirmDialog(this.dashboard, "Would you like to add a product order?",
-                            "Confirm",
-                            JOptionPane.YES_NO_OPTION) == 0) {
-                        this.panelorder.removeAll();
-                        SwingUtilities.updateComponentTreeUI(this.dashboard);
-                        String[] data = { this.amount_TextField.getText(),
-                                this.comboBox_cate.getSelectedItem().toString(),
-                                this.comboBox_pro.getSelectedItem().toString(),
-                                this.comboBox_cus.getSelectedItem().toString() };
-                        this.or.addOrder(data);
-                        this.orderlist(this.or.getOrder());
-                        this.amount_TextField.setText("");
-                        this.comboBox_pro.setSelectedIndex(0);
-                        this.comboBox_cus.setSelectedIndex(0);
+                    if (this.comboBox_pro.getSelectedIndex() == 0) {
+                        JOptionPane.showMessageDialog(this.dashboard, "Please select the product.", "Please select",
+                                JOptionPane.WARNING_MESSAGE);
+                    } else {
+
+                        if (JOptionPane.showConfirmDialog(this.dashboard, "Would you like to add a product order?",
+                                "Confirm",
+                                JOptionPane.YES_NO_OPTION) == 0) {
+                            this.panelorder.removeAll();
+                            SwingUtilities.updateComponentTreeUI(this.dashboard);
+                            String cus = "";
+                            if (this.comboBox_cus.getSelectedIndex() == 0) {
+                                cus = "0";
+                            } else {
+                                cus = this.comboBox_cus.getSelectedItem().toString();
+                            }
+                            String[] data = { this.amount_TextField.getText(),
+                                    this.comboBox_cate.getSelectedItem().toString(),
+                                    this.comboBox_pro.getSelectedItem().toString(), cus };
+                            this.or.addOrder(data);
+                            this.orderList(this.or.getOrder());
+                            this.amount_TextField.setText("");
+                            this.comboBox_pro.setSelectedIndex(0);
+                            this.comboBox_cus.setSelectedIndex(0);
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(this.dashboard, "Please enter the correct type!",
@@ -387,7 +399,7 @@ public class App implements ActionListener {
                     if (this.or.deleteOrder()) {
                         this.panelorder.removeAll();
                         SwingUtilities.updateComponentTreeUI(this.dashboard);
-                        this.orderlist(this.or.getOrder());
+                        this.orderList(this.or.getOrder());
                     } else {
                         JOptionPane.showMessageDialog(null, "An error occurred, please contact the admin.", "error",
                                 JOptionPane.ERROR_MESSAGE);
@@ -442,7 +454,7 @@ public class App implements ActionListener {
         }
     }
 
-    public void orderlist(String[][] data) {
+    public void orderList(String[][] data) {
         if (data.length > 1) {
             for (int i = 1; i < data.length; i++) {
                 this.order = new JTextField(8);
@@ -494,9 +506,12 @@ public class App implements ActionListener {
 
     public boolean checkType() {
         try {
+
             Integer.parseInt(this.amount_TextField.getText().toString().trim());
             return true;
-        } catch (Exception e) {
+        } catch (
+
+        Exception e) {
             return false;
         }
     }
