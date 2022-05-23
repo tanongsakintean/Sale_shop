@@ -322,7 +322,7 @@ public class Member implements ActionListener {
             this.panel.add(this.btn_del[i]);
         }
         this.scrollPanel = new JScrollPane(this.panel);
-        this.scrollPanel.setPreferredSize(new Dimension(920, 400));
+        this.scrollPanel.setPreferredSize(new Dimension(1000, 400));
         this.Member.add(this.scrollPanel);
 
         this.Member.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

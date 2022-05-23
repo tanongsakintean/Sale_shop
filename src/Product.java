@@ -329,7 +329,7 @@ public class Product implements ActionListener {
             this.panel.add(this.btn_del[i]);
         }
         this.scrollPanel = new JScrollPane(this.panel);
-        this.scrollPanel.setPreferredSize(new Dimension(920, 400));
+        this.scrollPanel.setPreferredSize(new Dimension(1000, 400));
         this.Product.add(this.scrollPanel);
         this.Product.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.Product.setSize(1200, 1113);

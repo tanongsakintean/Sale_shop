@@ -19,8 +19,10 @@ public class Mange_p extends Sql {
             this.data[i][0] = this.select("DB/Products/pro.txt")[i][0];
             this.data[i][1] = this.select("DB/Products/pro.txt")[i][1];
             this.data[i][2] = this.select("DB/Products/pro.txt")[i][2];
+
             this.data[i][3] = this.select("DB/Products/Category/cate.txt")[Integer
                     .parseInt(this.select("DB/Products/pro.txt")[i][3])][1];
+
             this.data[i][4] = this.select("DB/Products/pro.txt")[i][4];
         }
     }
