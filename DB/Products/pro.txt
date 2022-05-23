@@ -1,4 +1,1 @@
 0,choose Product,0,0,0,
-1,Table,Av500,2,100,
-2,Glass,AC444,2,50,
-3,Luler,Ac222,3,10,

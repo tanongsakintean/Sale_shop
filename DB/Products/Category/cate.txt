@@ -1,4 +1,2 @@
 0,choose Category,0,
 1,all products,0,
-2,wares,2,
-3,Student,1,

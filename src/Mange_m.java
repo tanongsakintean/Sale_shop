@@ -22,6 +22,10 @@ public class Mange_m extends Sql {
             }
             return this.select("DB/Members/customer.txt");
         } else {
+            if (this.select("DB/Members/saler.txt").length == 0) {
+                String member[] = { "0", "Saler", "", "0", "0", "0" };
+                this.insert(member, "DB/Members/saler.txt");
+            }
             return this.select("DB/Members/saler.txt");
         }
     }
