@@ -61,7 +61,6 @@ public class Mange_o extends Sql {
                 } else {
                     cost[1] += 20;
                 }
-
             }
             cost[0] += (Integer.parseInt(this.data[i][5]) * Integer.parseInt(this.data[i][4]));
         }

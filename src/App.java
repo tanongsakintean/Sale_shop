@@ -340,6 +340,8 @@ public class App implements ActionListener {
             this.dashboard.dispose();
         } else if (event.getSource() == this.btn[2]) {
             this.mem.start(2);
+            this.dashboard.setVisible(false);
+            this.dashboard.dispose();
         } else if (event.getSource() == this.btn[3]) {
             this.sa.start();
             this.dashboard.setVisible(false);

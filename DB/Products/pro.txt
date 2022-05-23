@@ -1,3 +1,4 @@
 0,choose Product,0,0,0,
-1,Table,AV100,2,500,
-2,glass,AB100,2,200,
+1,Table,Av500,2,100,
+2,Glass,AC444,2,50,
+3,Luler,Ac222,3,10,
